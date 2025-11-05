@@ -1,0 +1,14 @@
+---
+const { id, title, children, dark = false } = Astro.props;
+---
+<section id={id} class={`py-16 md:py-24 ${dark ? 'bg-carbón text-crema' : ''}`}>
+  <div class="container grid md:grid-cols-2 gap-8 items-start">
+    <div class="prose max-w-prose font-serif">
+      <h2 class="uppercase tracking-[0.12em] text-sm">{title}</h2>
+      <slot name="copy" />
+    </div>
+    <div class="space-y-6">
+      <slot />
+    </div>
+  </div>
+</section>

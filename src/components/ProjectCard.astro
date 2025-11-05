@@ -1,0 +1,7 @@
+---
+const { src, title = '', alt = '' } = Astro.props;
+---
+<figure class="space-y-3">
+  <img src={src} alt={alt || title} class="w-full aspect-[3/4] object-cover" loading="lazy" />
+  {title && <figcaption class="text-xs uppercase tracking-[0.12em]">{title}</figcaption>}
+</figure>

@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base minimalista */
+:root {
+  color-scheme: light;
+}
+html, body {
+  @apply bg-crema text-tinta antialiased;
+  font-feature-settings: "liga" 1, "kern" 1;
+}
+a { @apply underline-offset-4 hover:underline; }
