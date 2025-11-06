@@ -10,15 +10,9 @@ import Navbar from "../components/Navbar.astro";
     <!-- Fuentes principales -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   </head>
-<<<<<<< HEAD
   <body class={`${darkMode ? 'bg-dark text-cream' : 'bg-[#F5F1E4] text-dark'} font-sans`}>
-    <BurgerNav {darkMode} />
+    
     <main class="">
-=======
-  <body class={`${darkMode ? 'bg-dark text-cream' : 'bg-cream text-dark'} font-sans`}>
-      {showNavbar && <Navbar {darkMode} />}
-    <main class:list={{ 'pt-16': showNavbar }}>
->>>>>>> 7343a104441250bf312dc490d2993e1e13f8a394
       <slot />
     </main>
   </body>
