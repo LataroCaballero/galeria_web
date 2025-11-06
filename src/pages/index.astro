@@ -3,84 +3,83 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-
 import '../styles/globals.css';
+
+const featureLinks = [
+  {
+    href: '/estudio',
+    title: 'Estudio',
+    description: 'Interiorismo integral, dirección de obra y asesorías personalizadas.',
+    image: '/images/estudio-01.jpg',
+  },
+  {
+    href: '/styling',
+    title: 'Styling',
+    description: 'Concepto y dirección de arte para marcas, vidrieras y editoriales.',
+    image: '/images/styling-01.jpg',
+  },
+  {
+    href: '/proyectos',
+    title: 'Proyectos',
+    description: 'Selección de obras residenciales y comerciales.',
+    image: '/images/proyecto-01.jpg',
+  },
+  {
+    href: '/muestras',
+    title: 'Muestras',
+    description: 'Un espacio versátil para muestras, pop-ups y fotografía de producto.',
+    image: '/images/proyecto-02.jpg',
+  },
+  {
+    href: '/shop',
+    title: 'Espacio curado',
+    description: 'Objetos seleccionados, arte y piezas únicas.',
+    image: '/images/shop-01.jpg',
+  },
+  {
+    href: '/contacto',
+    title: 'Contacto',
+    description: 'Trabajemos juntos: escribinos y coordinemos una reunión.',
+    image: '/images/proyecto-03.jpg',
+  },
+];
 ---
+
 <BaseLayout title="GALERÍA · Arquitectura & Interiorismo">
   <Navbar />
 
-  <Hero src="/images/hero.jpg" alt="Galería - interior" />
-
-  <!-- Estudio -->
-  <Section id="estudio" title="ESTUDIO">
-    <Fragment slot="copy">
-      <p>Somos un estudio de interiorismo dedicado a crear espacios donde el diseño y la luz conviven con la materialidad.</p>
-      <p>Trabajamos desde la búsqueda, curaduría y construcción de atmósferas, con foco en proporción, detalle y texturas.</p>
-    </Fragment>
-    <img src="/images/estudio-01.jpg" alt="Estudio" class="w-full object-cover" loading="lazy" />
-  </Section>
-
-  <!-- Styling -->
-  <Section id="styling" title="STYLING">
-    <Fragment slot="copy">
-      <p>Nos especializamos en conceptos y paletas para desarrollar instalaciones, vidrieras y set de producto.</p>
-      <p>Dirección de arte para marcas y espacios; asesorías a medida.</p>
-    </Fragment>
-    <img src="/images/styling-01.jpg" alt="Styling" class="w-full object-cover" loading="lazy" />
-  </Section>
-
-  <!-- Proyectos -->
-  <section id="proyectos" class="py-16 md:py-24">
-    <div class="container">
-      <h2 class="uppercase tracking-[0.12em] text-sm font-serif mb-8">PROYECTOS</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <ProjectCard src="/images/proyecto-01.jpg" title="Proyecto 01" />
-        <ProjectCard src="/images/proyecto-02.jpg" title="Proyecto 02" />
-        <ProjectCard src="/images/proyecto-03.jpg" title="Proyecto 03" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Muestras (oscuro) -->
-  <Section id="muestras" title="MUESTRAS" dark>
-    <Fragment slot="copy">
-      <p>Consultanos por nuestro espacio para muestras de arte y diseño, fotografía de producto y pop-ups.</p>
-    </Fragment>
-    <div></div>
-  </Section>
-
-  <!-- Shop / Espacio -->
-  <Section id="shop" title="ESPACIO CURADO">
-    <Fragment slot="copy">
-      <p>Te invitamos a conocer objetos seleccionados: mobiliario, arte y piezas únicas. Pronto, tienda online.</p>
-    </Fragment>
-    <img src="/images/shop-01.jpg" alt="Espacio curado" class="w-full object-cover" loading="lazy" />
-  </Section>
-
-  <!-- Contacto -->
-  <section id="contacto" class="py-16 md:py-24">
-    <div class="container grid md:grid-cols-3 gap-8">
-      <div class="md:col-span-1">
-        <h2 class="uppercase tracking-[0.12em] text-sm font-serif mb-4">CONTACTO</h2>
-        <p class="text-sm leading-7">
-          arq. ANA RIVAS · 351 5997363<br/>
-          arq. CARO ALBERTO · 351 6302234<br/><br/>
-          IG: @galeria.estudio<br/>
-          galeria.estudio@email.com
+   <Hero src="/images/hero.jpg" alt="Galería - interior">
+    <p>
+      Arquitectura, interiorismo y dirección de arte desde Córdoba, Argentina. Diseñamos
+      atmósferas cálidas y precisas, donde la luz y la materialidad conviven en equilibrio.
+    </p>
+  </Hero>
+   <main class="pb-16 md:pb-24">
+    <Section title="EXPLORAR GALERÍA">
+      <Fragment slot="copy">
+        <p>
+          Somos un estudio de interiorismo dedicado a crear espacios donde el diseño y la luz conviven con la materialidad.
+          Trabajamos desde la búsqueda, curaduría y construcción de atmósferas con foco en proporción, detalle y texturas.
         </p>
+        <p>
+          Descubrí nuestras líneas de trabajo y proyectos recientes. Cada apartado reúne imágenes, procesos y servicios en profundidad.
+        </p>
+      </Fragment>
+      <div class="grid gap-6 sm:grid-cols-2">
+        {featureLinks.map((item) => (
+          <a href={item.href} class="group block no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-crema/80">
+            <figure class="space-y-3">
+              <div class="overflow-hidden">
+                <img src={item.image} alt={item.title} class="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+              </div>
+              <figcaption class="space-y-1">
+                <p class="text-xs uppercase tracking-[0.12em]">{item.title}</p>
+                <p class="text-sm leading-6">{item.description}</p>
+              </figcaption>
+            </figure>
+          </a>
+        ))}
       </div>
-      <div class="md:col-span-2">
-        <!-- Placeholder de formulario (luego lo conectamos a Formspree/Getform) -->
-        <form class="grid gap-4 max-w-lg">
-          <input class="border border-tinta/20 bg-white/60 p-3" placeholder="Nombre" />
-          <input class="border border-tinta/20 bg-white/60 p-3" placeholder="Email" type="email" />
-          <textarea class="border border-tinta/20 bg-white/60 p-3" rows="5" placeholder="Mensaje"></textarea>
-          <button class="self-start px-5 py-2 border border-tinta/60 hover:bg-tinta hover:text-crema transition">
-            Enviar
-          </button>
-        </form>
-      </div>
-    </div>
-  </section>
+    </Section>
+   </main>
 </BaseLayout>

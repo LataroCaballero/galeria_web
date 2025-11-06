@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Section from '../components/Section.astro';
+
+import '../styles/globals.css';
+---
+<BaseLayout title="Estudio · GALERÍA">
+  <Navbar />
+  <main class="pt-28 md:pt-36 pb-16 md:pb-24">
+    <Section title="ESTUDIO">
+      <Fragment slot="copy">
+        <p>
+          Somos un estudio de interiorismo dedicado a crear espacios donde el diseño y la luz conviven con la materialidad.
+          Nos enfocamos en la búsqueda, curaduría y construcción de atmósferas atemporales.
+        </p>
+        <p>
+          Acompañamos todo el proceso: concepto, proyecto ejecutivo, dirección de obra y equipamiento. Trabajamos en conjunto con artesanos y proveedores locales para lograr soluciones a medida.
+        </p>
+      </Fragment>
+      <img src="/images/estudio-01.jpg" alt="Estudio" class="w-full object-cover" loading="lazy" />
+    </Section>
+  </main>
+</BaseLayout>

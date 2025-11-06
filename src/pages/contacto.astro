@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Section from '../components/Section.astro';
+
+import '../styles/globals.css';
+---
+<BaseLayout title="Contacto · GALERÍA">
+  <Navbar />
+  <main class="pt-28 md:pt-36 pb-16 md:pb-24">
+    <Section title="CONTACTO">
+      <Fragment slot="copy">
+        <p class="text-sm leading-7">
+          arq. ANA RIVAS · 351 5997363<br />
+          arq. CARO ALBERTO · 351 6302234<br /><br />
+          IG: @galeria.estudio<br />
+          galeria.estudio@email.com
+        </p>
+      </Fragment>
+      <form class="grid gap-4 max-w-lg">
+        <input class="border border-tinta/20 bg-white/60 p-3" placeholder="Nombre" />
+        <input class="border border-tinta/20 bg-white/60 p-3" placeholder="Email" type="email" />
+        <textarea class="border border-tinta/20 bg-white/60 p-3" rows="5" placeholder="Mensaje"></textarea>
+        <button class="self-start px-5 py-2 border border-tinta/60 hover:bg-tinta hover:text-crema transition">
+          Enviar
+        </button>
+      </form>
+    </Section>
+  </main>
+</BaseLayout>

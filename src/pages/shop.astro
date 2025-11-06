@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Section from '../components/Section.astro';
+
+import '../styles/globals.css';
+---
+<BaseLayout title="Espacio curado · GALERÍA">
+  <Navbar />
+  <main class="pt-28 md:pt-36 pb-16 md:pb-24">
+    <Section title="ESPACIO CURADO">
+      <Fragment slot="copy">
+        <p>
+          Te invitamos a conocer objetos seleccionados: mobiliario, arte y piezas únicas reunidas a partir de colaboraciones con artistas y diseñadores locales.
+        </p>
+        <p>
+          Pronto, tienda online. Mientras tanto, coordiná una visita privada para explorar el catálogo disponible.
+        </p>
+      </Fragment>
+      <img src="/images/styling-01.jpg" alt="Espacio curado" class="w-full object-cover" loading="lazy" />
+    </Section>
+  </main>
+</BaseLayout>

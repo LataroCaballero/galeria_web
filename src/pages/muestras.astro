@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Section from '../components/Section.astro';
+
+import '../styles/globals.css';
+---
+<BaseLayout title="Muestras · GALERÍA">
+  <Navbar />
+  <main class="pt-28 md:pt-36 pb-16 md:pb-24">
+    <Section title="MUESTRAS" dark>
+      <Fragment slot="copy">
+        <p>
+          Consultanos por nuestro espacio para muestras de arte y diseño, fotografía de producto y pop-ups.
+        </p>
+        <p>
+          Disponemos de equipamiento básico, apoyo en montaje y comunicación para acompañar cada propuesta.
+        </p>
+      </Fragment>
+      <div class="grid gap-4 text-sm leading-6">
+        <p class="uppercase tracking-[0.12em] text-xs text-crema/70">SERVICIOS</p>
+        <ul class="space-y-2 list-disc list-inside">
+          <li>Alquiler por día o por semana</li>
+          <li>Asesoramiento curatorial y montaje</li>
+          <li>Registro fotográfico del evento</li>
+        </ul>
+      </div>
+    </Section>
+  </main>
+</BaseLayout>
