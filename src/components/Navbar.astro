@@ -8,13 +8,41 @@ const links = [
   { href: '/contacto', label: 'contacto' },
 ];
 ---
-<nav class="w-full fixed top-0 left-0 z-50">
+<nav class="fixed top-0 left-0 w-full z-50 bg-transparent">
   <div class="container flex items-center justify-between py-5">
-    <a href="/" class="tracking-tightish font-serif text-xl">GALERÍA</a>
-    <ul class="hidden md:flex gap-6 text-sm">
-      {links.map((l) => (
-        <li><a class="hover:opacity-70" href={l.href}>{l.label}</a></li>
-      ))}
-    </ul>
+
+    <!-- Logo -->
+    <a href="/" class="tracking-tightish font-serif text-white text-3xl">
+      GALERÍA
+    </a>
+
+    <!-- Botón hamburguesa (siempre visible) -->
+    <button 
+      onclick="document.getElementById('menuLinks').classList.toggle('hidden')"
+      class="flex flex-col gap-[4px] cursor-pointer"
+      aria-label="Abrir menú"
+    >
+      <span class="w-6 h-[2px] bg-white"></span>
+      <span class="w-6 h-[2px] bg-white"></span>
+      <span class="w-6 h-[2px] bg-white"></span>
+    </button>
   </div>
+
+  <!-- Menú expandible -->
+  <ul
+    id="menuLinks"
+    class="hidden flex flex-col md:flex-row items-center justify-center gap-10 py-4 text-lg text-white transition-all duration-300 ease-out"
+  >
+    {links.map((l) => (
+      <li>
+        <a
+          class="hover:opacity-70"
+          href={l.href}
+          onclick="document.getElementById('menuLinks').classList.add('hidden')"
+        >
+          {l.label}
+        </a>
+      </li>
+    ))}
+  </ul>
 </nav>

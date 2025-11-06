@@ -1,39 +1,41 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
-import Section from '../components/Section.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-
 import '../styles/globals.css';
 
 const projects = [
   {
     src: '/images/proyecto-01.jpg',
-    title: 'Proyecto 01',
-    alt: 'Living cálido con sillones de lino y mesa baja de madera',
+    alt: 'Detalle de mesa y silla en mármol y madera',
   },
   {
     src: '/images/proyecto-02.jpg',
-    title: 'Proyecto 02',
-    alt: 'Detalle de comedor con lámpara colgante y sillas tapizadas',
+    alt: 'Comedor cálido con lámpara colgante y sillón',
   },
 ];
-
 ---
 <BaseLayout title="Proyectos · GALERÍA">
   <Navbar />
-  <main class="pt-28 md:pt-36 pb-16 md:pb-24">
-    <Section title="PROYECTOS">
-      <Fragment slot="copy">
-        <p>
-          Interiorismo a medida para viviendas, locales comerciales y espacios gastronómicos. Cada proyecto combina investigación de materiales, lectura del contexto y resolución funcional.
-        </p>
-      </Fragment>
-      <div class="grid gap-8 md:grid-cols-3">
-        {projects.map((project) => (
-          <ProjectCard {...project} />
-        ))}
-      </div>
-    </Section>
+  <main class="h-screen bg-[#F5F1E4] flex flex-col justify-center items-center overflow-hidden">
+    <!-- Título alineado a la izquierda -->
+    <div class="w-full max-w-6xl px-10 md:px-20 mb-8 md:mb-12">
+      <h2 class="font-serif text-lg md:text-2xl tracking-tightish font-bold uppercase text-left">
+        PROYECTOS
+      </h2>
+    </div>
+
+    <!-- Imágenes con proporciones y márgenes -->
+    <div class="flex w-full max-w-6xl justify-center gap-10 px-10 md:px-20 h-[70vh]">
+      {projects.map((project) => (
+        <div class="flex-1 flex items-center justify-center">
+          <img
+            src={project.src}
+            alt={project.alt}
+            class="w-full h-full object-contain"
+            loading="lazy"
+          />
+        </div>
+      ))}
+    </div>
   </main>
 </BaseLayout>

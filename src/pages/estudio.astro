@@ -2,12 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import Section from '../components/Section.astro';
-
 import '../styles/globals.css';
 ---
 <BaseLayout title="Estudio · GALERÍA">
   <Navbar />
-  <main class="pt-28 md:pt-36 pb-16 md:pb-24">
+  <main>
     <Section title="ESTUDIO">
       <Fragment slot="copy">
         <p>
@@ -15,10 +14,18 @@ import '../styles/globals.css';
           Nos enfocamos en la búsqueda, curaduría y construcción de atmósferas atemporales.
         </p>
         <p>
-          Acompañamos todo el proceso: concepto, proyecto ejecutivo, dirección de obra y equipamiento. Trabajamos en conjunto con artesanos y proveedores locales para lograr soluciones a medida.
+          Acompañamos todo el proceso: concepto, proyecto ejecutivo, dirección de obra y equipamiento. 
+          Trabajamos en conjunto con artesanos y proveedores locales para lograr soluciones a medida.
         </p>
       </Fragment>
-      <img src="/images/estudio-01.jpg" alt="Estudio" class="w-full object-cover" loading="lazy" />
+
+      <!-- 📸 imagen principal -->
+      <img 
+        src="/images/estudio-01.jpg"
+        alt="Estudio"
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
     </Section>
   </main>
 </BaseLayout>

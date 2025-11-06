@@ -10,9 +10,9 @@ import BurgerNav from "../components/Navbar.astro";
     <!-- Fuentes principales -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   </head>
-  <body class={`${darkMode ? 'bg-dark text-cream' : 'bg-cream text-dark'} font-sans`}>
+  <body class={`${darkMode ? 'bg-dark text-cream' : 'bg-[#F5F1E4] text-dark'} font-sans`}>
     <BurgerNav {darkMode} />
-    <main class="pt-16">
+    <main class="">
       <slot />
     </main>
   </body>

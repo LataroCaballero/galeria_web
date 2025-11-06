@@ -2,12 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import Section from '../components/Section.astro';
-
 import '../styles/globals.css';
 ---
 <BaseLayout title="Styling · GALERÍA">
   <Navbar />
-  <main class="pt-28 md:pt-36 pb-16 md:pb-24">
+  <main>
     <Section title="STYLING">
       <Fragment slot="copy">
         <p>
@@ -17,7 +16,12 @@ import '../styles/globals.css';
           Creamos narrativas visuales que potencian la identidad de cada marca, desde la selección de objetos hasta la dirección de arte en fotografía y video.
         </p>
       </Fragment>
-      <img src="/images/styling-01.jpg" alt="Styling" class="w-full object-cover" loading="lazy" />
+      <img
+        src="/images/styling-01.jpg"
+        alt="Styling"
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
     </Section>
   </main>
 </BaseLayout>

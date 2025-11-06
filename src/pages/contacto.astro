@@ -1,30 +1,49 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
-import Section from '../components/Section.astro';
-
 import '../styles/globals.css';
 ---
 <BaseLayout title="Contacto · GALERÍA">
   <Navbar />
-  <main class="pt-28 md:pt-36 pb-16 md:pb-24">
-    <Section title="CONTACTO">
-      <Fragment slot="copy">
-        <p class="text-sm leading-7">
-          arq. ANA RIVAS · 351 5997363<br />
-          arq. CARO ALBERTO · 351 6302234<br /><br />
-          IG: @galeria.estudio<br />
-          galeria.estudio@email.com
-        </p>
-      </Fragment>
-      <form class="grid gap-4 max-w-lg">
-        <input class="border border-tinta/20 bg-white/60 p-3" placeholder="Nombre" />
-        <input class="border border-tinta/20 bg-white/60 p-3" placeholder="Email" type="email" />
-        <textarea class="border border-tinta/20 bg-white/60 p-3" rows="5" placeholder="Mensaje"></textarea>
-        <button class="self-start px-5 py-2 border border-tinta/60 hover:bg-tinta hover:text-crema transition">
-          Enviar
-        </button>
-      </form>
-    </Section>
+
+  <main class="min-h-screen bg-[#F5F1E4] flex flex-col justify-center items-center px-10 md:px-20">
+    <div class="w-full max-w-5xl text-sm md:text-base leading-7 text-black/80 space-y-12">
+
+      <!-- CONTACTO -->
+      <section>
+        <h2 class="font-serif text-lg md:text-2xl uppercase tracking-tightish mb-6 text-left text-lg font-bold">
+          CONTACTO
+        </h2>
+
+        <div class="space-y-2 text-center">
+          <p>arq. ANA RIVAS · 351-5997363</p>
+          <p>arq. CARO ALBERTO · 351-6302234</p>
+        </div>
+
+        <div class="space-y-1 mt-6 text-center">
+          <p class="uppercase text-[11px] tracking-wide opacity-80">ESCRIBINOS</p>
+          <p>IG: @galeria.estudio</p>
+          <p>galeria.anarivas.caroalberto@gmail.com</p>
+        </div>
+      </section>
+
+      <!-- UBICACIÓN -->
+      <section>
+        <h2 class="font-serif text-lg md:text-2xl uppercase tracking-tightish mb-6 text-left font-bold">
+          UBICACIÓN
+        </h2>
+
+        <div class="text-center">
+          <a
+            href="https://maps.app.goo.gl/nhr5rw7TlIuwNSneJ?g_st=com.google.maps.preview.copy"
+            target="_blank"
+            class="text-black/80 hover:opacity-60 transition break-words"
+          >
+            https://maps.app.goo.gl/nhr5rw7TlIuwNSneJ?g_st=com.google.maps.preview.copy
+          </a>
+        </div>
+      </section>
+
+    </div>
   </main>
 </BaseLayout>

@@ -1,30 +1,31 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
-import Section from '../components/Section.astro';
-
 import '../styles/globals.css';
 ---
 <BaseLayout title="Muestras · GALERÍA">
   <Navbar />
-  <main class="pt-28 md:pt-36 pb-16 md:pb-24">
-    <Section title="MUESTRAS" dark>
-      <Fragment slot="copy">
-        <p>
-          Consultanos por nuestro espacio para muestras de arte y diseño, fotografía de producto y pop-ups.
-        </p>
-        <p>
-          Disponemos de equipamiento básico, apoyo en montaje y comunicación para acompañar cada propuesta.
-        </p>
-      </Fragment>
-      <div class="grid gap-4 text-sm leading-6">
-        <p class="uppercase tracking-[0.12em] text-xs text-crema/70">SERVICIOS</p>
-        <ul class="space-y-2 list-disc list-inside">
-          <li>Alquiler por día o por semana</li>
-          <li>Asesoramiento curatorial y montaje</li>
-          <li>Registro fotográfico del evento</li>
-        </ul>
+  <main class="h-screen bg-[#2E2118] flex flex-col justify-center items-center text-center text-[#E5DED4] overflow-hidden">
+
+    <!-- Título más grande, ligeramente hacia la izquierda -->
+    <div class="w-full max-w-3xl px-10 md:px-20 mb-10 md:mb-14 text-left">
+      <h2 class="font-serif text-lg md:text-2xl uppercase tracking-tightish">
+        MUESTRAS
+      </h2>
+    </div>
+
+    <!-- Contenido central -->
+    <div class="max-w-3xl px-10 md:px-20 space-y-6 text-center">
+      <p class="font-serif text-base md:text-xl opacity-90">
+        consultanos por nuestro espacio para
+      </p>
+      <div class="font-serif text-lg md:text-xl leading-relaxed">
+        <p>Muestras de Arte y diseño</p>
+        <p>Fotografía de producto</p>
+        <p>Vidriera</p>
+        <p>Exposiciones pop-up</p>
       </div>
-    </Section>
+    </div>
+
   </main>
 </BaseLayout>
