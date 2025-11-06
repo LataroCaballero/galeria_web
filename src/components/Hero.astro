@@ -1,7 +1,119 @@
 ---
 const { src = '/images/hero.jpg', alt = 'Hero' } = Astro.props;
 const hasContent = Astro.slots.has('default');
+const navLinks = [
+  { href: '/styling', label: 'styling' },
+  { href: '/proyectos', label: 'proyectos' },
+  { href: '/muestras', label: 'muestras' },
+  { href: '/contacto', label: 'contacto' },
+  { href: '/shop', label: 'shop' },
+];
 ---
+<<<<<<< HEAD
 <section id="top" class="relative h-screen w-full">
   <img src={src} alt={alt} class="absolute inset-0 w-full h-full object-cover z-0 opacity-50" loading="eager" />
 </section>
+=======
+<section
+  data-hero
+  data-menu-open="false"
+  class="relative isolate min-h-[100svh] w-full overflow-hidden text-white"
+>
+  <img src={src} alt={alt} class="absolute inset-0 h-full w-full object-cover" loading="eager" />
+  <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/20"></div>
+  <div class="relative z-10 flex min-h-[100svh] flex-col">
+    <div class="flex items-start justify-between px-6 pt-8 sm:px-10">
+      <h1 class="font-serif text-2xl tracking-[0.35em] text-white sm:text-3xl">
+        <a href="/" class="text-inherit no-underline">GALERÍA</a>
+      </h1>
+      <div class="flex flex-col items-end gap-4 text-right">
+        <button
+          type="button"
+          class="relative flex h-10 w-10 flex-col items-center justify-center gap-1.5 text-white focus:outline-none"
+          aria-expanded="false"
+          aria-controls="hero-menu"
+          data-menu-toggle
+        >
+          <span class="sr-only">Abrir menú</span>
+          <span class="line h-px w-8 bg-white"></span>
+          <span class="line h-px w-8 bg-white"></span>
+          <span class="line h-px w-8 bg-white"></span>
+        </button>
+        <nav
+          id="hero-menu"
+          data-menu
+          class="flex flex-col items-end gap-3 text-[0.75rem] font-medium uppercase tracking-[0.35em] text-white transition-opacity duration-200 ease-out sm:flex-row sm:gap-6 sm:text-sm"
+        >
+          {navLinks.map((item) => (
+            <a href={item.href} class="hover:opacity-80 focus:outline-none focus-visible:underline">
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </div>
+    {hasContent && (
+      <div class="mt-auto px-6 pb-12 sm:px-10 sm:pb-16">
+        <div class="max-w-xl text-sm leading-6 text-white/90 sm:text-base sm:leading-7">
+          <slot />
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+<style>
+  [data-hero][data-menu-open="false"] [data-menu] {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  [data-hero][data-menu-open="true"] [data-menu] {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  [data-hero] [data-menu-toggle] .line {
+    transition: transform 200ms ease, opacity 200ms ease;
+  }
+
+  [data-hero][data-menu-open="true"] [data-menu-toggle] .line:nth-child(2) {
+    opacity: 0;
+  }
+
+  [data-hero][data-menu-open="true"] [data-menu-toggle] .line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  [data-hero][data-menu-open="true"] [data-menu-toggle] .line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+</style>
+<script type="module">
+  const currentScript = document.currentScript;
+  const hero = currentScript?.closest('[data-hero]');
+
+  if (hero) {
+    const toggle = hero.querySelector('[data-menu-toggle]');
+    const menu = hero.querySelector('[data-menu]');
+
+    if (toggle && menu) {
+      toggle.addEventListener('click', () => {
+        const isOpen = hero.getAttribute('data-menu-open') === 'true';
+        const nextState = (!isOpen).toString();
+
+        hero.setAttribute('data-menu-open', nextState);
+        toggle.setAttribute('aria-expanded', nextState);
+      });
+
+      menu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          hero.setAttribute('data-menu-open', 'false');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  }
+</script>
+>>>>>>> 7343a104441250bf312dc490d2993e1e13f8a394
