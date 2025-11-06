@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Section from '../components/Section.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+import '../styles/globals.css';
+
+const projects = [
+  {
+    src: '/images/proyecto-01.jpg',
+    title: 'Proyecto 01',
+    alt: 'Living cálido con sillones de lino y mesa baja de madera',
+  },
+  {
+    src: '/images/proyecto-02.jpg',
+    title: 'Proyecto 02',
+    alt: 'Detalle de comedor con lámpara colgante y sillas tapizadas',
+  },
+];
+
+---
+<BaseLayout title="Proyectos · GALERÍA">
+  <Navbar />
+  <main class="pt-28 md:pt-36 pb-16 md:pb-24">
+    <Section title="PROYECTOS">
+      <Fragment slot="copy">
+        <p>
+          Interiorismo a medida para viviendas, locales comerciales y espacios gastronómicos. Cada proyecto combina investigación de materiales, lectura del contexto y resolución funcional.
+        </p>
+      </Fragment>
+      <div class="grid gap-8 md:grid-cols-3">
+        {projects.map((project) => (
+          <ProjectCard {...project} />
+        ))}
+      </div>
+    </Section>
+  </main>
+</BaseLayout>
