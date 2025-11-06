@@ -1,6 +1,6 @@
 ---
-const { title = "Galería Estudio", darkMode = false } = Astro.props;
-import BurgerNav from "../components/Navbar.astro";
+const { title = "Galería Estudio", darkMode = false, showNavbar = true } = Astro.props;
+import Navbar from "../components/Navbar.astro";
 ---
 <html lang="es">
   <head>
@@ -11,8 +11,8 @@ import BurgerNav from "../components/Navbar.astro";
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   </head>
   <body class={`${darkMode ? 'bg-dark text-cream' : 'bg-cream text-dark'} font-sans`}>
-    <BurgerNav {darkMode} />
-    <main class="pt-16">
+      {showNavbar && <Navbar {darkMode} />}
+    <main class:list={{ 'pt-16': showNavbar }}>
       <slot />
     </main>
   </body>
