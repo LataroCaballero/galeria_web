@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import '../styles/globals.css';
@@ -45,16 +44,14 @@ const featureLinks = [
 ];
 ---
 
-<BaseLayout title="GALERÍA · Arquitectura & Interiorismo">
-  <Navbar />
-
-   <Hero src="/images/hero.jpg" alt="Galería - interior">
+<BaseLayout title="GALERÍA · Arquitectura & Interiorismo" showNavbar={false}>
+  <Hero src="/images/hero.jpg" alt="Galería - interior">
     <p>
       Arquitectura, interiorismo y dirección de arte desde Córdoba, Argentina. Diseñamos
       atmósferas cálidas y precisas, donde la luz y la materialidad conviven en equilibrio.
     </p>
   </Hero>
-   <main class="pb-16 md:pb-24">
+    <main class="pb-16 md:pb-24">
     <Section title="EXPLORAR GALERÍA">
       <Fragment slot="copy">
         <p>
@@ -81,5 +78,5 @@ const featureLinks = [
         ))}
       </div>
     </Section>
-   </main>
+    </main>
 </BaseLayout>
