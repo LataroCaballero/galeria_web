@@ -5,7 +5,8 @@ export default {
     container: { center: true, padding: '1rem' },
     extend: {
       colors: { crema: '#F2EBD8', carbón: '#2B2521', tinta: '#3C3A37' },
-      fontFamily: { serif: ['"Cormorant Garamond"', 'serif'], sans: ['Inter','ui-sans-serif','system-ui'] },
+      fontFamily: { 
+        serif: ['Perpetua', 'Times New Roman', 'serif'],},
       letterSpacing: { tightish: '-0.01em' },
     },
   },
