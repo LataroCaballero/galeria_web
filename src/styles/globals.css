@@ -11,3 +11,14 @@ html, body {
   font-feature-settings: "liga" 1, "kern" 1;
 }
 a { @apply underline-offset-4 hover:underline; }
+
+@font-face {
+  font-family: 'Perpetua';
+  src: url('/fonts/Perpetua-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Perpetua', serif;
+}
