@@ -8,45 +8,44 @@ const links = [
   { href: '/contacto', label: 'contacto' },
 ];
 ---
+
 <nav class="fixed top-0 left-0 w-full z-50 bg-transparent">
-  <div class="container flex items-center justify-between py-5">
+  <div class="container flex items-center justify-between py-5 relative">
 
     <!-- Logo clickeable -->
     <a href="/" class="flex items-center">
       <img 
         src="/images/logo.png" 
         alt="Galería logo" 
-        class="h-8 md:h-10 w-auto object-contain drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+        class="h-8 md:h-10 w-auto object-contain drop-shadow-[0_2px_3px_rgba(0,0,0,0.3)]"
       />
     </a>
 
-    <!-- Botón hamburguesa (siempre visible) -->
+    <!-- Botón hamburguesa -->
     <button 
       onclick="document.getElementById('menuLinks').classList.toggle('hidden')"
-      class="flex flex-col gap-[4px] cursor-pointer"
+      class="flex flex-col gap-[4px] cursor-pointer z-50"
       aria-label="Abrir menú"
     >
       <span class="w-6 h-[2px] bg-white"></span>
       <span class="w-6 h-[2px] bg-white"></span>
       <span class="w-6 h-[2px] bg-white"></span>
     </button>
-  </div>
 
-  <!-- Menú expandible -->
-  <ul
-    id="menuLinks"
-    class="hidden flex flex-col md:flex-row items-center justify-center gap-10 py-4 text-lg text-white transition-all duration-300 ease-out"
-  >
-    {links.map((l) => (
-      <li>
-        <a
-          class="hover:opacity-70 drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
-          href={l.href}
-          onclick="document.getElementById('menuLinks').classList.add('hidden')"
-        >
-          {l.label}
-        </a>
-      </li>
-    ))}
-  </ul>
+    <!-- Menú (oculto por defecto en todos los tamaños) -->
+    <div
+      id="menuLinks"
+      class="hidden absolute right-0 top-1/2 -translate-y-1/2 md:flex-row items-center md:mr-16 md:px-6 py-3 text-white text-base bg-transparent transition-all duration-300 ease-out"
+    >
+      {links.map((l) => (
+          <a
+            class="hover:opacity-70 mx-8"
+            href={l.href}
+            onclick="document.getElementById('menuLinks').classList.add('hidden')"
+          >
+            {l.label}
+          </a>
+      ))}
+    </div>
+  </div>
 </nav>
