@@ -1,17 +1,23 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Navbar from '../components/Navbar.astro';
-import '../styles/globals.css';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.astro";
+import "../styles/globals.css";
 ---
+
 <BaseLayout title="Contacto · GALERÍA">
   <Navbar />
 
-  <main class="min-h-screen bg-[#F5F1E4] flex flex-col justify-center items-center px-10 md:px-20">
-    <div class="w-full max-w-5xl text-sm md:text-base leading-7 text-black/80 space-y-12">
-
+  <main
+    class="min-h-screen bg-[#F5F1E4] flex flex-col justify-center items-center px-10 md:px-20"
+  >
+    <div
+      class="w-full max-w-5xl text-sm md:text-base leading-7 text-black/80 space-y-12"
+    >
       <!-- CONTACTO -->
       <section>
-        <h2 class="font-serif text-lg md:text-2xl uppercase tracking-tightish mb-6 text-left text-lg font-bold">
+        <h2
+          class="font-serif text-lg md:text-2xl uppercase tracking-tightish mb-6 text-left text-lg font-bold"
+        >
           CONTACTO
         </h2>
 
@@ -21,15 +27,21 @@ import '../styles/globals.css';
         </div>
 
         <div class="font-serif space-y-1 mt-6 text-center">
-          <p class="uppercase text-[11px] tracking-wide opacity-80">ESCRIBINOS</p>
-          <p>IG: @galeria.estudio</p>
+          <p class="uppercase text-[11px] tracking-wide opacity-80">
+            ESCRIBINOS
+          </p>
+          <a href="https://www.instagram.com/galeria.va?igsh=ZTI5YzJjZzM1azIx"
+            >IG: @galeria.va</a
+          >
           <p>galeria.anarivas.caroalberto@gmail.com</p>
         </div>
       </section>
 
       <!-- UBICACIÓN -->
       <section>
-        <h2 class="font-serif text-lg md:text-2xl uppercase tracking-tightish mb-6 text-left font-bold">
+        <h2
+          class="font-serif text-lg md:text-2xl uppercase tracking-tightish mb-6 text-left font-bold"
+        >
           UBICACIÓN
         </h2>
 
@@ -43,7 +55,6 @@ import '../styles/globals.css';
           </a>
         </div>
       </section>
-
     </div>
   </main>
 </BaseLayout>

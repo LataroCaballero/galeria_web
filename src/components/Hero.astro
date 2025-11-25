@@ -1,13 +1,44 @@
 ---
-const { src = '/images/hero.jpg', alt = 'Hero' } = Astro.props;
-const hasContent = Astro.slots.has('default');
+const { src = "/images/hero.jpg", alt = "Hero" } = Astro.props;
+const hasContent = Astro.slots.has("default");
 const navLinks = [
-  { href: '/styling', label: 'styling' },
-  { href: '/proyectos', label: 'proyectos' },
-  { href: '/muestras', label: 'muestras' },
-  { href: '/contacto', label: 'contacto' },
-  { href: '/shop', label: 'shop' },
+  { href: "/styling", label: "styling" },
+  { href: "/proyectos", label: "proyectos" },
+  { href: "/muestras", label: "muestras" },
+  { href: "/contacto", label: "contacto" },
+  { href: "/shop", label: "shop" },
 ];
 ---
-<section id="top" class="relative h-screen w-full bg-[#2E2118]">
+
+<section id="top" class="relative h-screen w-full overflow-hidden">
+  <!-- VIDEO DE FONDO -->
+  <video
+    class="absolute inset-0 w-full h-full object-cover"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    poster="/images/poster.webp"
+  >
+    <!-- Mobile -->
+    <source
+      src="/videos/video_mobile.webm"
+      media="(max-width: 768px)"
+      type="video/webm"
+    />
+
+    <!-- Desktop -->
+    <source
+      src="/videos/video_desktop.webm"
+      media="(min-width: 769px)"
+      type="video/webm"
+    />
+
+    <!-- Fallback opcional -->
+    <source src="/videos/video_desktop.mp4" type="video/mp4" />
+  </video>
+
+  <!-- OVERLAY SUAVE (si querés oscurecer un poquito) -->
+  <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
 </section>
