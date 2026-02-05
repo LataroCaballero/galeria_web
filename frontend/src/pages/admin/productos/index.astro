@@ -1,0 +1,21 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Productos">
+  <div id="product-list"></div>
+</AdminLayout>
+
+<script>
+  import { createElement } from 'react';
+  import { createRoot } from 'react-dom/client';
+  import ProductList from '../../../components/admin/ProductList';
+
+  const container = document.getElementById('product-list');
+  if (container) {
+    const root = createRoot(container);
+    root.render(createElement(ProductList));
+  }
+</script>

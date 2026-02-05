@@ -1,0 +1,90 @@
+---
+export const prerender = false;
+
+import '../styles/globals.css';
+import { getTokenFromCookies, validateToken } from '../lib/auth';
+
+const token = getTokenFromCookies(Astro.request.headers.get('cookie'));
+if (!token) {
+  return Astro.redirect('/admin/login');
+}
+
+const user = await validateToken(token);
+if (!user) {
+  return Astro.redirect('/admin/login');
+}
+
+const { title = 'Admin' } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const navItems = [
+  { href: '/admin', label: 'Dashboard', icon: '◻' },
+  { href: '/admin/productos', label: 'Productos', icon: '◻' },
+  { href: '/admin/categorias', label: 'Categorias', icon: '◻' },
+];
+---
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} - Admin Panel</title>
+  <meta name="robots" content="noindex, nofollow" />
+</head>
+<body class="bg-[#F5F1E4] text-tinta font-serif min-h-screen">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-56 bg-carbón text-crema p-6 space-y-8 hidden md:flex md:flex-col shrink-0">
+      <a href="/admin" class="text-sm uppercase tracking-tightish font-bold block">
+        Galeria Admin
+      </a>
+
+      <nav class="space-y-3 text-sm flex-1">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class={`block py-1 hover:opacity-70 transition ${
+              currentPath === item.href ? 'opacity-100 font-bold' : 'opacity-70'
+            }`}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="space-y-3 text-sm border-t border-crema/20 pt-4">
+        <a href="/" target="_blank" class="block hover:opacity-70 opacity-70">Ver Sitio</a>
+        <button id="logoutBtn" class="block hover:opacity-70 opacity-70 text-left cursor-pointer">
+          Cerrar Sesion
+        </button>
+      </div>
+    </aside>
+
+    <!-- Mobile header -->
+    <div class="md:hidden fixed top-0 left-0 right-0 z-50 bg-carbón text-crema px-4 py-3 flex items-center justify-between">
+      <a href="/admin" class="text-sm uppercase tracking-tightish font-bold">Admin</a>
+      <div class="flex gap-4 text-xs">
+        <a href="/admin/productos" class="hover:opacity-70">Productos</a>
+        <a href="/admin/categorias" class="hover:opacity-70">Categorias</a>
+        <button id="logoutBtnMobile" class="hover:opacity-70 cursor-pointer">Salir</button>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <main class="flex-1 p-6 md:p-8 overflow-y-auto mt-12 md:mt-0">
+      <slot />
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('logoutBtn')?.addEventListener('click', () => {
+      document.cookie = 'auth_token=; Max-Age=0; path=/';
+      window.location.href = '/admin/login';
+    });
+    document.getElementById('logoutBtnMobile')?.addEventListener('click', () => {
+      document.cookie = 'auth_token=; Max-Age=0; path=/';
+      window.location.href = '/admin/login';
+    });
+  </script>
+</body>
+</html>
