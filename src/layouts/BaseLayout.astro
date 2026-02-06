@@ -1,0 +1,19 @@
+---
+const { title = "Galería Estudio", darkMode = false, showNavbar = true } = Astro.props;
+import Navbar from "../components/Navbar.astro";
+---
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} - Galería Estudio</title>
+    <!-- Fuentes principales -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class={`${darkMode ? 'bg-dark text-cream' : 'bg-[#F5F1E4] text-dark'} font-sans`}>
+    
+    <main class="">
+      <slot />
+    </main>
+  </body>
+</html>
