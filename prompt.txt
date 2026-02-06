@@ -1,0 +1,19 @@
+Tenes que ejecutar el proyecto de expansión de galeriaestudio.com.ar. El objetivo es transformar el sitio estático actual en un catálogo dinámico con un panel de administración profesional e integrado.
++1
+📋 Contexto y Requisitos Técnicos
+Arquitectura: El sitio actual utiliza Astro. La administración debe integrarse en el mismo proyecto mediante Astro + React Islands en la ruta /admin/* para simplificar el deploy.
++3
+Backend: Desarrollar una API REST robusta utilizando NestJS.
++4
+Base de Datos: Utilizar PostgreSQL (Supabase) con Prisma ORM para la gestión de modelos.
++4
+Multimedia: Integración con Cloudinary para la subida y optimización de imágenes (transformaciones automáticas de tamaño y formato).
++2
+Seguridad: Implementar autenticación JWT, almacenamiento de tokens en cookies httpOnly (server-side) y hashing de contraseñas con bcrypt.
++1
+🎨 Consistencia Visual y UX
+Estética: Mantener el estilo minimalista actual, inspirado en Lotta Agaton y Norm Architects (uso de espacios en blanco, grids limpios y tipografía refinada).
+Frontend Público: El catálogo en /productos debe ser responsive, con filtros por categoría y carga optimizada (lazy loading).
++1
+SEO: Implementar meta tags dinámicos y Schema.org markup para cada producto.
+Instrucción de inicio: Analizá la documentación técnica provista, planifica.

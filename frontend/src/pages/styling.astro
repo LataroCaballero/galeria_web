@@ -1,0 +1,31 @@
+---
+export const prerender = true;
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Section from '../components/Section.astro';
+---
+<BaseLayout title="Styling · GALERÍA">
+  <Navbar />
+  <main class="pt-20 md:pt-0">
+    <Section title="STYLING">
+      <Fragment slot="copy">
+        <p>
+          Nos especializamos en conceptos y estilismo para desarrollos inmobiliarios ,
+          <br>residenciales y comerciales.
+        </p>
+        <p>
+          el estilismo es la fase sensorial que da vida a los espacios,
+          <br>a traves de el, seleccionamos y ubicamos objetos, textiles, arte y accesorios que
+          <br>reflejen la identidad del lugar y de quien lo habita.
+        </p>
+      </Fragment>
+      <img
+        src="/images/styling-03.jpg"
+        alt="Styling"
+        class="w-full h-full object-cover md:object-cover mt-8 md:mt-0"
+        loading="lazy"
+      />
+    </Section>
+  </main>
+</BaseLayout>

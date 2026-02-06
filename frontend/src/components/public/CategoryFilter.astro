@@ -1,0 +1,27 @@
+---
+interface Props {
+  categories: { name: string; slug: string }[];
+  activeCategory?: string;
+}
+
+const { categories, activeCategory } = Astro.props;
+---
+
+<nav class="flex flex-wrap gap-4 mb-12 justify-center md:justify-start">
+  <a
+    href="/shop"
+    class={`text-xs uppercase tracking-[0.12em] pb-1 transition-opacity no-underline
+      ${!activeCategory ? 'border-b border-tinta text-tinta' : 'text-tinta/50 hover:text-tinta'}`}
+  >
+    Todo
+  </a>
+  {categories.map((cat) => (
+    <a
+      href={`/shop?categoria=${cat.slug}`}
+      class={`text-xs uppercase tracking-[0.12em] pb-1 transition-opacity no-underline
+        ${activeCategory === cat.slug ? 'border-b border-tinta text-tinta' : 'text-tinta/50 hover:text-tinta'}`}
+    >
+      {cat.name}
+    </a>
+  ))}
+</nav>
