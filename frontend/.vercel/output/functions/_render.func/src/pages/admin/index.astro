@@ -92,9 +92,9 @@ try {
               <p class="text-xs text-tinta/50">{product.category?.name}</p>
             </div>
             <span class={`text-[10px] uppercase px-2 py-0.5 ${
-              product.status === 'PUBLISHED' ? 'bg-green-100 text-green-800' : 'bg-tinta/10 text-tinta'
+              product.status === 'PUBLISHED' ? 'bg-green-100 text-green-800' : product.status === 'ARCHIVED' ? 'bg-red-100 text-red-800' : 'bg-tinta/10 text-tinta'
             }`}>
-              {product.status}
+              {product.status === 'PUBLISHED' ? 'Publicado' : product.status === 'DRAFT' ? 'Borrador' : 'Archivado'}
             </span>
           </a>
         ))}

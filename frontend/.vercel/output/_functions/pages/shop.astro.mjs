@@ -1,6 +1,6 @@
-import { e as createComponent, f as createAstro, m as maybeRenderHead, h as addAttribute, r as renderTemplate, k as renderComponent } from '../chunks/astro/server_Bi6a7uwE.mjs';
-import { $ as $$BaseLayout } from '../chunks/BaseLayout_B1bbaBUP.mjs';
-import { $ as $$Navbar } from '../chunks/Navbar_ioqkXQc1.mjs';
+import { e as createComponent, f as createAstro, m as maybeRenderHead, h as addAttribute, r as renderTemplate, k as renderComponent } from '../chunks/astro/server_Dz1MIulS.mjs';
+import { $ as $$BaseLayout } from '../chunks/BaseLayout_DWq2fQDr.mjs';
+import { $ as $$Navbar } from '../chunks/Navbar_6f9cWjxq.mjs';
 import 'clsx';
 export { renderers } from '../renderers.mjs';
 
@@ -10,7 +10,7 @@ const $$CatalogCard = createComponent(($$result, $$props, $$slots) => {
   Astro2.self = $$CatalogCard;
   const { name, slug, imageUrl, imageAlt, category } = Astro2.props;
   return renderTemplate`${maybeRenderHead()}<a${addAttribute(`/shop/${slug}`, "href")} class="group block no-underline"> <figure class="space-y-3"> <div class="aspect-[4/5] overflow-hidden bg-tinta/5"> <img${addAttribute(imageUrl, "src")}${addAttribute(imageAlt, "alt")} class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-90" loading="lazy"> </div> <figcaption class="space-y-1"> <h3 class="font-serif text-sm uppercase tracking-tightish text-tinta"> ${name} </h3> ${category && renderTemplate`<p class="text-[11px] uppercase tracking-wide text-tinta/50"> ${category} </p>`} </figcaption> </figure> </a>`;
-}, "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/components/public/CatalogCard.astro", void 0);
+}, "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/components/public/CatalogCard.astro", void 0);
 
 const $$Astro$1 = createAstro();
 const $$CategoryFilter = createComponent(($$result, $$props, $$slots) => {
@@ -22,7 +22,7 @@ const $$CategoryFilter = createComponent(($$result, $$props, $$slots) => {
 Todo
 </a> ${categories.map((cat) => renderTemplate`<a${addAttribute(`/shop?categoria=${cat.slug}`, "href")}${addAttribute(`text-xs uppercase tracking-[0.12em] pb-1 transition-opacity no-underline
         ${activeCategory === cat.slug ? "border-b border-tinta text-tinta" : "text-tinta/50 hover:text-tinta"}`, "class")}> ${cat.name} </a>`)} </nav>`;
-}, "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/components/public/CategoryFilter.astro", void 0);
+}, "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/components/public/CategoryFilter.astro", void 0);
 
 const $$Astro = createAstro();
 const prerender = false;
@@ -59,8 +59,8 @@ SHOP
     const primaryImage = product.images?.find((i) => i.isPrimary) || product.images?.[0];
     return renderTemplate`${renderComponent($$result2, "CatalogCard", $$CatalogCard, { "name": product.name, "slug": product.slug, "imageUrl": primaryImage?.cloudinaryUrl || "/images/shop.jpg", "imageAlt": primaryImage?.altText || product.name, "category": product.category?.name })}`;
   })} </div> <!-- Empty state --> ${products.length === 0 && renderTemplate`<div class="text-center py-20 max-w-7xl mx-auto"> <p class="font-serif text-tinta/60">No se encontraron productos.</p> </div>`} </main> ` })}`;
-}, "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/pages/shop/index.astro", void 0);
-const $$file = "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/pages/shop/index.astro";
+}, "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/pages/shop/index.astro", void 0);
+const $$file = "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/pages/shop/index.astro";
 const $$url = "/shop";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

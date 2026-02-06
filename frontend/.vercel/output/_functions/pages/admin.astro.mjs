@@ -1,5 +1,5 @@
-import { e as createComponent, f as createAstro, k as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute } from '../chunks/astro/server_Bi6a7uwE.mjs';
-import { $ as $$AdminLayout } from '../chunks/AdminLayout_Bokrgrpk.mjs';
+import { e as createComponent, f as createAstro, k as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute } from '../chunks/astro/server_Dz1MIulS.mjs';
+import { $ as $$AdminLayout } from '../chunks/AdminLayout_RZG_zdt2.mjs';
 import { g as getTokenFromCookies } from '../chunks/auth_Du1NjG1G.mjs';
 export { renderers } from '../renderers.mjs';
 
@@ -39,9 +39,9 @@ const $$Index = createComponent(async ($$result, $$props, $$slots) => {
 Nuevo Producto
 </a> <a href="/admin/productos" class="border border-tinta/20 px-6 py-2 text-sm uppercase tracking-tightish hover:bg-tinta/5 transition">
 Ver Todos
-</a> </div>  ${recentProducts.length > 0 && renderTemplate`<div> <h2 class="text-sm uppercase tracking-tightish font-bold mb-4">Productos Recientes</h2> <div class="bg-white border border-tinta/10 divide-y divide-tinta/10"> ${recentProducts.map((product) => renderTemplate`<a${addAttribute(`/admin/productos/${product.id}/editar`, "href")} class="flex items-center gap-4 p-3 hover:bg-crema/50 transition no-underline"> ${product.images?.[0] && renderTemplate`<img${addAttribute(product.images[0].cloudinaryUrl, "src")} alt="" class="w-10 h-10 object-cover">`} <div class="flex-1"> <p class="text-sm font-bold">${product.name}</p> <p class="text-xs text-tinta/50">${product.category?.name}</p> </div> <span${addAttribute(`text-[10px] uppercase px-2 py-0.5 ${product.status === "PUBLISHED" ? "bg-green-100 text-green-800" : "bg-tinta/10 text-tinta"}`, "class")}> ${product.status} </span> </a>`)} </div> </div>`}` })}`;
-}, "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/pages/admin/index.astro", void 0);
-const $$file = "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/pages/admin/index.astro";
+</a> </div>  ${recentProducts.length > 0 && renderTemplate`<div> <h2 class="text-sm uppercase tracking-tightish font-bold mb-4">Productos Recientes</h2> <div class="bg-white border border-tinta/10 divide-y divide-tinta/10"> ${recentProducts.map((product) => renderTemplate`<a${addAttribute(`/admin/productos/${product.id}/editar`, "href")} class="flex items-center gap-4 p-3 hover:bg-crema/50 transition no-underline"> ${product.images?.[0] && renderTemplate`<img${addAttribute(product.images[0].cloudinaryUrl, "src")} alt="" class="w-10 h-10 object-cover">`} <div class="flex-1"> <p class="text-sm font-bold">${product.name}</p> <p class="text-xs text-tinta/50">${product.category?.name}</p> </div> <span${addAttribute(`text-[10px] uppercase px-2 py-0.5 ${product.status === "PUBLISHED" ? "bg-green-100 text-green-800" : product.status === "ARCHIVED" ? "bg-red-100 text-red-800" : "bg-tinta/10 text-tinta"}`, "class")}> ${product.status === "PUBLISHED" ? "Publicado" : product.status === "DRAFT" ? "Borrador" : "Archivado"} </span> </a>`)} </div> </div>`}` })}`;
+}, "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/pages/admin/index.astro", void 0);
+const $$file = "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/pages/admin/index.astro";
 const $$url = "/admin";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

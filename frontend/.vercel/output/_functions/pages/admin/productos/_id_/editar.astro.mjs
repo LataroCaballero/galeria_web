@@ -1,6 +1,6 @@
-import { e as createComponent, f as createAstro, k as renderComponent, r as renderTemplate } from '../../../../chunks/astro/server_Bi6a7uwE.mjs';
-import { $ as $$AdminLayout } from '../../../../chunks/AdminLayout_Bokrgrpk.mjs';
-import { P as ProductForm } from '../../../../chunks/ProductForm_DunD83s_.mjs';
+import { e as createComponent, f as createAstro, k as renderComponent, r as renderTemplate } from '../../../../chunks/astro/server_Dz1MIulS.mjs';
+import { $ as $$AdminLayout } from '../../../../chunks/AdminLayout_RZG_zdt2.mjs';
+import { P as ProductForm } from '../../../../chunks/ProductForm_ChPYB-7A.mjs';
 import { g as getTokenFromCookies } from '../../../../chunks/auth_Du1NjG1G.mjs';
 export { renderers } from '../../../../renderers.mjs';
 
@@ -26,9 +26,9 @@ const $$Editar = createComponent(async ($$result, $$props, $$slots) => {
   if (!product) {
     return Astro2.redirect("/admin/productos");
   }
-  return renderTemplate`${renderComponent($$result, "AdminLayout", $$AdminLayout, { "title": `Editar: ${product.name}` }, { "default": async ($$result2) => renderTemplate` ${renderComponent($$result2, "ProductForm", ProductForm, { "client:load": true, "product": product, "apiUrl": API, "client:component-hydration": "load", "client:component-path": "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/components/admin/ProductForm", "client:component-export": "default" })} ` })}`;
-}, "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/pages/admin/productos/[id]/editar.astro", void 0);
-const $$file = "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/pages/admin/productos/[id]/editar.astro";
+  return renderTemplate`${renderComponent($$result, "AdminLayout", $$AdminLayout, { "title": `Editar: ${product.name}` }, { "default": async ($$result2) => renderTemplate` ${renderComponent($$result2, "ProductForm", ProductForm, { "client:load": true, "product": product, "apiUrl": API, "client:component-hydration": "load", "client:component-path": "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/components/admin/ProductForm", "client:component-export": "default" })} ` })}`;
+}, "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/pages/admin/productos/[id]/editar.astro", void 0);
+const $$file = "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/pages/admin/productos/[id]/editar.astro";
 const $$url = "/admin/productos/[id]/editar";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

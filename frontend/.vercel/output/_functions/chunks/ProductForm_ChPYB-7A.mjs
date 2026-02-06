@@ -3,18 +3,45 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { useState, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { a as api, Q as QueryProvider } from './api_9J35uP7a.mjs';
 import { useDropzone } from 'react-dropzone';
+import imageCompression from 'browser-image-compression';
+
+const OPTIONS = {
+  maxSizeMB: 2,
+  maxWidthOrHeight: 2048,
+  useWebWorker: true,
+  initialQuality: 0.92,
+  preserveExif: false
+};
+async function optimizeImage(file) {
+  const compressed = await imageCompression(file, OPTIONS);
+  return new File([compressed], file.name, { type: compressed.type });
+}
 
 function ImageUploader({ productId, existingImages, apiUrl }) {
   const [images, setImages] = useState(existingImages);
   const [uploading, setUploading] = useState(false);
+  const [optimizing, setOptimizing] = useState(false);
   const [error, setError] = useState("");
+  const [draggedIndex, setDraggedIndex] = useState(null);
+  const [dragOverIndex, setDragOverIndex] = useState(null);
+  const prevImagesRef = useRef(images);
   const onDrop = useCallback(async (acceptedFiles) => {
-    setUploading(true);
     setError("");
+    setOptimizing(true);
+    const optimizedFiles = [];
     for (const file of acceptedFiles) {
+      try {
+        optimizedFiles.push(await optimizeImage(file));
+      } catch {
+        optimizedFiles.push(file);
+      }
+    }
+    setOptimizing(false);
+    setUploading(true);
+    for (const file of optimizedFiles) {
       try {
         const formData = new FormData();
         formData.append("file", file);
@@ -45,17 +72,72 @@ function ImageUploader({ productId, existingImages, apiUrl }) {
     }
   };
   const setPrimary = async (imageId) => {
+    const prev = [...images];
     try {
+      const sorted = [...images].sort((a, b) => a.order - b.order);
+      const idx = sorted.findIndex((img) => img.id === imageId);
+      if (idx > 0) {
+        const [moved] = sorted.splice(idx, 1);
+        sorted.unshift(moved);
+      }
+      const reordered = sorted.map((img, i) => ({
+        ...img,
+        order: i,
+        isPrimary: img.id === imageId
+      }));
+      setImages(reordered);
       await api.patch(`/admin/uploads/primary/${imageId}`);
-      setImages(
-        (prev) => prev.map((img) => ({
-          ...img,
-          isPrimary: img.id === imageId
-        }))
-      );
+      if (idx > 0) {
+        await api.patch(`/admin/uploads/order/${productId}`, {
+          imageIds: reordered.map((img) => img.id)
+        });
+      }
     } catch {
+      setImages(prev);
       setError("Error al cambiar imagen principal");
     }
+  };
+  const handleDragStart = (index) => {
+    prevImagesRef.current = [...images];
+    setDraggedIndex(index);
+  };
+  const handleDragOver = (e, index) => {
+    e.preventDefault();
+    setDragOverIndex(index);
+  };
+  const handleDrop = async (targetIndex) => {
+    if (draggedIndex === null || draggedIndex === targetIndex) {
+      setDraggedIndex(null);
+      setDragOverIndex(null);
+      return;
+    }
+    const sorted = [...images].sort((a, b) => a.order - b.order);
+    const [moved] = sorted.splice(draggedIndex, 1);
+    sorted.splice(targetIndex, 0, moved);
+    const newPrimaryId = targetIndex === 0 ? moved.id : null;
+    const reordered = sorted.map((img, i) => ({
+      ...img,
+      order: i,
+      ...newPrimaryId != null ? { isPrimary: img.id === newPrimaryId } : {}
+    }));
+    setImages(reordered);
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+    try {
+      await api.patch(`/admin/uploads/order/${productId}`, {
+        imageIds: reordered.map((img) => img.id)
+      });
+      if (newPrimaryId) {
+        await api.patch(`/admin/uploads/primary/${newPrimaryId}`);
+      }
+    } catch {
+      setImages(prevImagesRef.current);
+      setError("Error al reordenar imagenes");
+    }
+  };
+  const handleDragEnd = () => {
+    setDraggedIndex(null);
+    setDragOverIndex(null);
   };
   return /* @__PURE__ */ jsxs("div", { children: [
     /* @__PURE__ */ jsxs(
@@ -65,40 +147,53 @@ function ImageUploader({ productId, existingImages, apiUrl }) {
         className: `border-2 border-dashed px-6 py-8 text-center cursor-pointer transition mb-4 ${isDragActive ? "border-[#2B2521] bg-[#F2EBD8]" : "border-[#3C3A37]/20 hover:border-[#3C3A37]/40"}`,
         children: [
           /* @__PURE__ */ jsx("input", { ...getInputProps() }),
-          uploading ? /* @__PURE__ */ jsx("p", { className: "text-sm text-[#3C3A37]/60", children: "Subiendo..." }) : isDragActive ? /* @__PURE__ */ jsx("p", { className: "text-sm", children: "Soltar imagenes aqui" }) : /* @__PURE__ */ jsx("p", { className: "text-sm text-[#3C3A37]/60", children: "Arrastra imagenes aqui o hace click para seleccionar" })
+          optimizing ? /* @__PURE__ */ jsx("p", { className: "text-sm text-[#3C3A37]/60", children: "Optimizando imagenes..." }) : uploading ? /* @__PURE__ */ jsx("p", { className: "text-sm text-[#3C3A37]/60", children: "Subiendo..." }) : isDragActive ? /* @__PURE__ */ jsx("p", { className: "text-sm", children: "Soltar imagenes aqui" }) : /* @__PURE__ */ jsx("p", { className: "text-sm text-[#3C3A37]/60", children: "Arrastra imagenes aqui o hace click para seleccionar" })
         ]
       }
     ),
     error && /* @__PURE__ */ jsx("p", { className: "text-red-600 text-xs mb-4", children: error }),
-    images.length > 0 && /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 md:grid-cols-4 gap-3", children: images.sort((a, b) => a.order - b.order).map((img) => /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
-      /* @__PURE__ */ jsx(
-        "img",
-        {
-          src: img.cloudinaryUrl,
-          alt: img.altText || "",
-          className: `w-full aspect-square object-cover ${img.isPrimary ? "ring-2 ring-green-600" : ""}`
-        }
-      ),
-      img.isPrimary && /* @__PURE__ */ jsx("span", { className: "absolute top-1 left-1 bg-green-600 text-white text-[9px] px-1", children: "Principal" }),
-      /* @__PURE__ */ jsxs("div", { className: "absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2", children: [
-        !img.isPrimary && /* @__PURE__ */ jsx(
-          "button",
-          {
-            onClick: () => setPrimary(img.id),
-            className: "text-white text-[10px] bg-green-700 px-2 py-1 hover:bg-green-800 cursor-pointer",
-            children: "Principal"
-          }
-        ),
-        /* @__PURE__ */ jsx(
-          "button",
-          {
-            onClick: () => deleteImage(img.cloudinaryPublicId),
-            className: "text-white text-[10px] bg-red-700 px-2 py-1 hover:bg-red-800 cursor-pointer",
-            children: "Eliminar"
-          }
-        )
-      ] })
-    ] }, img.id)) })
+    images.length > 0 && /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 md:grid-cols-4 gap-3", children: [...images].sort((a, b) => a.order - b.order).map((img, index) => /* @__PURE__ */ jsxs(
+      "div",
+      {
+        draggable: true,
+        onDragStart: () => handleDragStart(index),
+        onDragOver: (e) => handleDragOver(e, index),
+        onDrop: () => handleDrop(index),
+        onDragEnd: handleDragEnd,
+        className: `relative group cursor-grab active:cursor-grabbing transition-all ${draggedIndex === index ? "opacity-40" : ""} ${dragOverIndex === index && draggedIndex !== index ? "ring-2 ring-[#2B2521] scale-[1.03]" : ""}`,
+        children: [
+          /* @__PURE__ */ jsx("span", { className: "absolute top-1 right-1 z-10 bg-[#2B2521]/80 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full", children: index + 1 }),
+          /* @__PURE__ */ jsx(
+            "img",
+            {
+              src: img.cloudinaryUrl,
+              alt: img.altText || "",
+              className: `w-full aspect-square object-cover pointer-events-none ${img.isPrimary ? "ring-2 ring-green-600" : ""}`
+            }
+          ),
+          img.isPrimary && /* @__PURE__ */ jsx("span", { className: "absolute top-1 left-1 bg-green-600 text-white text-[9px] px-1", children: "Principal" }),
+          /* @__PURE__ */ jsxs("div", { className: "absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2", children: [
+            !img.isPrimary && /* @__PURE__ */ jsx(
+              "button",
+              {
+                onClick: () => setPrimary(img.id),
+                className: "text-white text-[10px] bg-green-700 px-2 py-1 hover:bg-green-800 cursor-pointer",
+                children: "Principal"
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              "button",
+              {
+                onClick: () => deleteImage(img.cloudinaryPublicId),
+                className: "text-white text-[10px] bg-red-700 px-2 py-1 hover:bg-red-800 cursor-pointer",
+                children: "Eliminar"
+              }
+            )
+          ] })
+        ]
+      },
+      img.id
+    )) })
   ] });
 }
 
@@ -314,6 +409,10 @@ function ProductFormInner({ product, apiUrl }) {
           )
         ] }, i))
       ] }),
+      isEdit && product && /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-sm uppercase tracking-[-0.01em] font-bold mb-4", children: "Imagenes" }),
+        /* @__PURE__ */ jsx(ImageUploader, { productId: product.id, existingImages: product.images || [], apiUrl })
+      ] }),
       /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4", children: [
         /* @__PURE__ */ jsx(
           "button",
@@ -327,10 +426,6 @@ function ProductFormInner({ product, apiUrl }) {
         saved && /* @__PURE__ */ jsx("span", { className: "text-green-700 text-sm", children: "Guardado" }),
         mutation.isError && /* @__PURE__ */ jsx("span", { className: "text-red-600 text-sm", children: "Error al guardar" })
       ] })
-    ] }),
-    isEdit && product && /* @__PURE__ */ jsxs("div", { className: "mt-10 max-w-2xl", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-sm uppercase tracking-[-0.01em] font-bold mb-4", children: "Imagenes" }),
-      /* @__PURE__ */ jsx(ImageUploader, { productId: product.id, existingImages: product.images || [], apiUrl })
     ] })
   ] });
 }

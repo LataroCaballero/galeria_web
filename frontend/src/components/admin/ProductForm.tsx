@@ -239,6 +239,14 @@ function ProductFormInner({ product, apiUrl }: { product?: Product; apiUrl: stri
           ))}
         </div>
 
+        {/* Image uploader (only for edit mode) */}
+        {isEdit && product && (
+          <div className="mt-4">
+            <h2 className="text-sm uppercase tracking-[-0.01em] font-bold mb-4">Imagenes</h2>
+            <ImageUploader productId={product.id} existingImages={product.images || []} apiUrl={apiUrl} />
+          </div>
+        )}
+
         {/* Submit */}
         <div className="flex items-center gap-4">
           <button
@@ -254,14 +262,6 @@ function ProductFormInner({ product, apiUrl }: { product?: Product; apiUrl: stri
           )}
         </div>
       </form>
-
-      {/* Image uploader (only for edit mode) */}
-      {isEdit && product && (
-        <div className="mt-10 max-w-2xl">
-          <h2 className="text-sm uppercase tracking-[-0.01em] font-bold mb-4">Imagenes</h2>
-          <ImageUploader productId={product.id} existingImages={product.images || []} apiUrl={apiUrl} />
-        </div>
-      )}
     </div>
   );
 }

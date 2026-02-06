@@ -1,5 +1,5 @@
-import { e as createComponent, k as renderComponent, r as renderTemplate } from '../../chunks/astro/server_Bi6a7uwE.mjs';
-import { $ as $$AdminLayout } from '../../chunks/AdminLayout_Bokrgrpk.mjs';
+import { e as createComponent, k as renderComponent, r as renderTemplate } from '../../chunks/astro/server_Dz1MIulS.mjs';
+import { $ as $$AdminLayout } from '../../chunks/AdminLayout_RZG_zdt2.mjs';
 import { jsx, jsxs, Fragment } from 'react/jsx-runtime';
 import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -175,10 +175,10 @@ function CategoryManager() {
 
 const prerender = false;
 const $$Index = createComponent(($$result, $$props, $$slots) => {
-  return renderTemplate`${renderComponent($$result, "AdminLayout", $$AdminLayout, { "title": "Categorias" }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "CategoryManager", CategoryManager, { "client:load": true, "client:component-hydration": "load", "client:component-path": "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/components/admin/CategoryManager", "client:component-export": "default" })} ` })}`;
-}, "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/pages/admin/categorias/index.astro", void 0);
+  return renderTemplate`${renderComponent($$result, "AdminLayout", $$AdminLayout, { "title": "Categorias" }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "CategoryManager", CategoryManager, { "client:load": true, "client:component-hydration": "load", "client:component-path": "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/components/admin/CategoryManager", "client:component-export": "default" })} ` })}`;
+}, "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/pages/admin/categorias/index.astro", void 0);
 
-const $$file = "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/pages/admin/categorias/index.astro";
+const $$file = "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/pages/admin/categorias/index.astro";
 const $$url = "/admin/categorias";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

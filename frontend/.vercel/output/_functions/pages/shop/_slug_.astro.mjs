@@ -1,6 +1,6 @@
-import { e as createComponent, f as createAstro, k as renderComponent, r as renderTemplate, q as Fragment, u as unescapeHTML, m as maybeRenderHead, h as addAttribute } from '../../chunks/astro/server_Bi6a7uwE.mjs';
-import { $ as $$BaseLayout } from '../../chunks/BaseLayout_B1bbaBUP.mjs';
-import { $ as $$Navbar } from '../../chunks/Navbar_ioqkXQc1.mjs';
+import { e as createComponent, f as createAstro, k as renderComponent, r as renderTemplate, q as Fragment, u as unescapeHTML, m as maybeRenderHead, h as addAttribute } from '../../chunks/astro/server_Dz1MIulS.mjs';
+import { $ as $$BaseLayout } from '../../chunks/BaseLayout_DWq2fQDr.mjs';
+import { $ as $$Navbar } from '../../chunks/Navbar_6f9cWjxq.mjs';
 export { renderers } from '../../renderers.mjs';
 
 var __freeze = Object.freeze;
@@ -48,8 +48,8 @@ const $$slug = createComponent(async ($$result, $$props, $$slots) => {
 $${Number(product.price).toLocaleString("es-AR")} </p> </div> ${product.description && renderTemplate`<div class="font-serif text-sm leading-relaxed text-black/80 space-y-4"> <p>${product.description}</p> </div>`} ${product.specifications && Object.keys(product.specifications).length > 0 && renderTemplate`<div> <h3 class="text-xs uppercase tracking-[0.12em] font-bold mb-4">Especificaciones</h3> <dl class="space-y-2 text-sm"> ${Object.entries(product.specifications).map(([key, value]) => renderTemplate`<div class="flex justify-between border-b border-tinta/10 pb-2"> <dt class="text-tinta/60 uppercase text-xs tracking-wide">${key}</dt> <dd class="font-serif">${value}</dd> </div>`)} </dl> </div>`} <a href="/contacto" class="inline-block bg-carbón text-crema px-8 py-3 text-sm uppercase tracking-tightish hover:opacity-90 transition no-underline">
 Consultar
 </a> </div> </div> </main> `, "head": async ($$result2) => renderTemplate`${renderComponent($$result2, "Fragment", Fragment, { "slot": "head" }, { "default": async ($$result3) => renderTemplate(_a || (_a = __template([' <script type="application/ld+json">', "</script> "])), unescapeHTML(schemaOrg)) })}` })}`;
-}, "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/pages/shop/[slug].astro", void 0);
-const $$file = "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/pages/shop/[slug].astro";
+}, "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/pages/shop/[slug].astro", void 0);
+const $$file = "/Users/laucaballero/Desktop/Lautaro/AndesCode/galeria_web/frontend/src/pages/shop/[slug].astro";
 const $$url = "/shop/[slug]";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

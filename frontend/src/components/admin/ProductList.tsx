@@ -2,22 +2,33 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { QueryProvider } from './QueryProvider';
 import api from '../../lib/api';
-import type { Product, PaginatedResponse } from '../../types';
+import type { Product, Category, PaginatedResponse } from '../../types';
 
 function ProductListInner() {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('');
+
+  const { data: categoriesData } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const res = await api.get('/categories');
+      return res.data;
+    },
+  });
+  const categories: Category[] = categoriesData?.data || categoriesData || [];
 
   const { data, isLoading } = useQuery({
-    queryKey: ['admin-products', page, search, statusFilter],
+    queryKey: ['admin-products', page, search, statusFilter, categoryFilter],
     queryFn: async () => {
       const params = new URLSearchParams();
       params.set('page', String(page));
       params.set('limit', '15');
       if (search) params.set('search', search);
       if (statusFilter) params.set('status', statusFilter);
+      if (categoryFilter) params.set('categoryId', categoryFilter);
 
       const res = await api.get(`/admin/products?${params}`);
       return res.data as { data: PaginatedResponse<Product> } | PaginatedResponse<Product>;
@@ -76,6 +87,16 @@ function ProductListInner() {
           <option value="DRAFT">Borrador</option>
           <option value="PUBLISHED">Publicado</option>
           <option value="ARCHIVED">Archivado</option>
+        </select>
+        <select
+          value={categoryFilter}
+          onChange={(e) => { setCategoryFilter(e.target.value); setPage(1); }}
+          className="border border-[#3C3A37]/20 bg-white px-3 py-2 text-sm font-serif focus:outline-none"
+        >
+          <option value="">Todas las categorias</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>{cat.name}</option>
+          ))}
         </select>
       </div>
 

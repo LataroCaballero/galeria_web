@@ -34,7 +34,7 @@ const navItems = [
 <body class="bg-[#F5F1E4] text-tinta font-serif min-h-screen">
   <div class="flex min-h-screen">
     <!-- Sidebar -->
-    <aside class="w-56 bg-carbón text-crema p-6 space-y-8 hidden md:flex md:flex-col shrink-0">
+    <aside class="w-56 bg-carbón text-crema p-6 space-y-8 hidden md:flex md:flex-col shrink-0 fixed top-0 left-0 h-screen overflow-y-auto">
       <a href="/admin" class="text-sm uppercase tracking-tightish font-bold block">
         Galeria Admin
       </a>
@@ -71,7 +71,7 @@ const navItems = [
     </div>
 
     <!-- Main content -->
-    <main class="flex-1 p-6 md:p-8 overflow-y-auto mt-12 md:mt-0">
+    <main class="flex-1 p-6 md:p-8 overflow-y-auto mt-12 md:mt-0 md:ml-56">
       <slot />
     </main>
   </div>
