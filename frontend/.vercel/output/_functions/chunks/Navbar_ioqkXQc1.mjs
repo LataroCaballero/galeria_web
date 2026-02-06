@@ -1,0 +1,16 @@
+import { e as createComponent, m as maybeRenderHead, h as addAttribute, r as renderTemplate } from './astro/server_Bi6a7uwE.mjs';
+import 'clsx';
+
+const $$Navbar = createComponent(($$result, $$props, $$slots) => {
+  const links = [
+    { href: "/estudio", label: "estudio" },
+    { href: "/styling", label: "styling" },
+    { href: "/proyectos", label: "proyectos" },
+    { href: "/muestras", label: "muestras" },
+    { href: "/shop", label: "shop" },
+    { href: "/contacto", label: "contacto" }
+  ];
+  return renderTemplate`${maybeRenderHead()}<nav class="fixed top-0 left-0 w-full z-50 bg-transparent"> <div class="container flex items-center justify-between py-5 relative"> <!-- Logo clickeable --> <a href="/" class="flex items-center"> <img src="/images/logo.png" alt="Galería logo" class="h-8 md:h-10 w-auto object-contain"> </a> <!-- Botón hamburguesa --> <button onclick="document.getElementById('menuLinks').classList.toggle('hidden')" class="flex flex-col gap-[4px] cursor-pointer z-50" aria-label="Abrir menú"> <span class="w-6 h-[2px] bg-black"></span> <span class="w-6 h-[2px] bg-black"></span> <span class="w-6 h-[2px] bg-black"></span> </button> <!-- Menú (oculto por defecto en todos los tamaños) --> <div id="menuLinks" class="hidden fixed md:absolute inset-y-[356px] right-0 mt-12 md:mt-3 md:inset-1/4 md:right-0 md:top-1/2 -translate-y-1/2 flex flex-col space-y-10 md:flex-row items-center justify-center md:items-end md:mr-16 md:px-6 py-10 md:py-3 text-white text-base md:text-sm h-screen w-screen md:w-[800px] md:h-0 bg-white md:bg-transparent transition-all duration-300 ease-out"> ${links.map((l) => renderTemplate`<a class="hover:opacity-70 mx-8 text-black"${addAttribute(l.href, "href")} onclick="document.getElementById('menuLinks').classList.add('hidden')"> ${l.label} </a>`)} </div> </div> </nav>`;
+}, "D:/Santi Medina/Documents/Andes Code/Galeria Estudio/galeria-estudio-web/frontend/src/components/Navbar.astro", void 0);
+
+export { $$Navbar as $ };
