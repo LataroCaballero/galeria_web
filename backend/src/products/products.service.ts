@@ -31,9 +31,8 @@ export class ProductsService {
         include: {
           category: { select: { id: true, name: true, slug: true } },
           images: {
-            orderBy: { order: 'asc' },
+            orderBy: [{ isPrimary: 'desc' }, { order: 'asc' }],
             take: 1,
-            where: { isPrimary: true },
           },
         },
         orderBy: { createdAt: 'desc' },
@@ -43,22 +42,8 @@ export class ProductsService {
       this.prisma.product.count({ where }),
     ]);
 
-    // If no primary image found, get first image
-    const productsWithImages = await Promise.all(
-      products.map(async (product) => {
-        if (product.images.length === 0) {
-          const firstImage = await this.prisma.productImage.findFirst({
-            where: { productId: product.id },
-            orderBy: { order: 'asc' },
-          });
-          return { ...product, images: firstImage ? [firstImage] : [] };
-        }
-        return product;
-      }),
-    );
-
     return {
-      data: productsWithImages,
+      data: products,
       meta: {
         total,
         page,

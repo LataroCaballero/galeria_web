@@ -3,6 +3,7 @@ export const prerender = false;
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navbar from '../../components/Navbar.astro';
+import { cloudinaryUrl } from '../../lib/cloudinary';
 
 const { slug } = Astro.params;
 const API = import.meta.env.PUBLIC_API_URL;
@@ -28,7 +29,7 @@ const otherImages = product.images?.filter((i: any) => i.id !== primaryImage?.id
 
 const seoTitle = `${product.name} · GALERÍA`;
 const seoDescription = product.description || `Descubri ${product.name} en Galeria Estudio`;
-const seoImage = primaryImage?.cloudinaryUrl || '/images/hero.jpg';
+const seoImage = primaryImage?.cloudinaryUrl || '/images/og-hero.jpg';
 
 // Schema.org Product markup
 const schemaOrg = JSON.stringify({
@@ -55,8 +56,8 @@ const schemaOrg = JSON.stringify({
 
   <main class="pt-28 pb-24 bg-[#F5F1E4] min-h-screen">
     <!-- Breadcrumb -->
-    <nav class="max-w-7xl mx-auto px-6 md:px-20 mb-8">
-      <ol class="flex gap-2 text-xs uppercase tracking-[0.12em] text-tinta/50">
+    <nav class="max-w-5xl mx-auto px-6 md:px-20 mb-12">
+      <ol class="flex justify-center gap-2 text-xs uppercase tracking-[0.12em] text-tinta/50">
         <li><a href="/shop" class="hover:text-tinta no-underline">Shop</a></li>
         <li>/</li>
         {product.category && (
@@ -73,69 +74,69 @@ const schemaOrg = JSON.stringify({
       </ol>
     </nav>
 
-    <!-- Product Layout: 2 columns -->
-    <div class="max-w-7xl mx-auto px-6 md:px-20 grid grid-cols-1 md:grid-cols-2 gap-12">
-      <!-- Image Gallery -->
-      <div class="space-y-4">
-        {primaryImage && (
-          <div class="aspect-[4/5] overflow-hidden">
-            <img
-              src={primaryImage.cloudinaryUrl}
-              alt={primaryImage.altText || product.name}
-              class="w-full h-full object-cover"
-            />
-          </div>
-        )}
-        {otherImages.map((img: any) => (
-          <div class="aspect-[4/5] overflow-hidden">
-            <img
-              src={img.cloudinaryUrl}
-              alt={img.altText || product.name}
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-        ))}
-      </div>
+    <!-- Product Info (centered) -->
+    <div class="max-w-2xl mx-auto px-6 text-center space-y-6 mb-16">
+      <h1 class="font-serif text-2xl md:text-3xl font-bold uppercase tracking-tightish">
+        {product.name}
+      </h1>
 
-      <!-- Product Info (sticky on desktop) -->
-      <div class="md:sticky md:top-28 md:self-start space-y-8">
-        <div>
-          <h1 class="font-serif text-2xl md:text-3xl font-bold uppercase tracking-tightish mb-3">
-            {product.name}
-          </h1>
-          <p class="font-serif text-lg text-tinta/80">
-            ${Number(product.price).toLocaleString('es-AR')}
-          </p>
+      {product.description && (
+        <p class="font-serif text-sm leading-relaxed text-tinta/80">
+          {product.description}
+        </p>
+      )}
+
+      {product.specifications && Object.keys(product.specifications).length > 0 && (
+        <dl class="inline-flex flex-col gap-1 text-sm text-tinta/70">
+          {Object.entries(product.specifications).map(([key, value]) => (
+            <div>
+              <dt class="inline uppercase text-xs tracking-wide">{key}:</dt>
+              <dd class="inline font-serif ml-1">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      <p class="font-serif text-lg text-tinta">
+        ${Number(product.price).toLocaleString('es-AR')}
+      </p>
+    </div>
+
+    <!-- Image Gallery (2 columns) -->
+    <div class="max-w-5xl mx-auto px-6 md:px-20 grid grid-cols-1 sm:grid-cols-2 gap-1 mb-16">
+      {primaryImage && (
+        <div class="aspect-[4/5] overflow-hidden">
+          <img
+            src={cloudinaryUrl(primaryImage.cloudinaryUrl, { width: 800 })}
+            alt={primaryImage.altText || product.name}
+            width="800"
+            height="1000"
+            class="w-full h-full object-cover"
+          />
         </div>
+      )}
+      {otherImages.map((img: any) => (
+        <div class="aspect-[4/5] overflow-hidden">
+          <img
+            src={cloudinaryUrl(img.cloudinaryUrl, { width: 800 })}
+            alt={img.altText || product.name}
+            width="800"
+            height="1000"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      ))}
+    </div>
 
-        {product.description && (
-          <div class="font-serif text-sm leading-relaxed text-black/80 space-y-4">
-            <p>{product.description}</p>
-          </div>
-        )}
-
-        {product.specifications && Object.keys(product.specifications).length > 0 && (
-          <div>
-            <h3 class="text-xs uppercase tracking-[0.12em] font-bold mb-4">Especificaciones</h3>
-            <dl class="space-y-2 text-sm">
-              {Object.entries(product.specifications).map(([key, value]) => (
-                <div class="flex justify-between border-b border-tinta/10 pb-2">
-                  <dt class="text-tinta/60 uppercase text-xs tracking-wide">{key}</dt>
-                  <dd class="font-serif">{value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        )}
-
-        <a
-          href="/contacto"
-          class="inline-block bg-carbón text-crema px-8 py-3 text-sm uppercase tracking-tightish hover:opacity-90 transition no-underline"
-        >
-          Consultar
-        </a>
-      </div>
+    <!-- CTA -->
+    <div class="text-center">
+      <a
+        href="/contacto"
+        class="inline-block bg-carbón text-crema px-10 py-3 text-sm uppercase tracking-tightish hover:opacity-90 transition no-underline"
+      >
+        Consultar
+      </a>
     </div>
   </main>
 </BaseLayout>

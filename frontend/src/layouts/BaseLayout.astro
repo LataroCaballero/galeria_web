@@ -13,7 +13,7 @@ interface Props {
 const {
   title = "Galería Estudio",
   description = "Arquitectura & Interiorismo - Galería Estudio",
-  image = "/images/hero.jpg",
+  image = "/images/og-hero.jpg",
   darkMode = false,
   showNavbar = true,
 } = Astro.props;
@@ -34,12 +34,14 @@ const {
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Fuentes principales -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Resource hints -->
+    <link rel="preload" href="/fonts/Perpetua-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preconnect" href="https://res.cloudinary.com" />
+    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
 
     <slot name="head" />
   </head>
-  <body class={`${darkMode ? 'bg-dark text-cream' : 'bg-[#F5F1E4] text-dark'} font-sans`}>
+  <body class={`${darkMode ? 'bg-dark text-cream' : 'bg-[#F5F1E4] text-dark'}`}>
 
     <main class="">
       <slot />

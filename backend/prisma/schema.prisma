@@ -54,6 +54,8 @@ model Product {
   @@index([categoryId])
   @@index([status])
   @@index([slug])
+  @@index([status, deletedAt])
+  @@index([status, deletedAt, categoryId])
   @@map("products")
 }
 
@@ -75,5 +77,6 @@ model ProductImage {
   createdAt          DateTime @default(now()) @map("created_at")
 
   @@index([productId])
+  @@index([productId, isPrimary, order])
   @@map("product_images")
 }

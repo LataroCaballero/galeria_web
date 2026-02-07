@@ -8,6 +8,7 @@ import {
   Query,
   Body,
   UseGuards,
+  Header,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -21,11 +22,13 @@ export class ProductsPublicController {
   constructor(private productsService: ProductsService) {}
 
   @Get()
+  @Header('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600')
   findAll(@Query() query: QueryProductDto) {
     return this.productsService.findAllPublic(query);
   }
 
   @Get(':slug')
+  @Header('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600')
   findBySlug(@Param('slug') slug: string) {
     return this.productsService.findBySlug(slug);
   }

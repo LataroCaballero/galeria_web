@@ -1,5 +1,5 @@
-import { e as createComponent, k as renderComponent, r as renderTemplate } from '../../../chunks/astro/server_Dz1MIulS.mjs';
-import { $ as $$AdminLayout } from '../../../chunks/AdminLayout_RZG_zdt2.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate } from '../../../chunks/astro/server_CRPzdeUu.mjs';
+import { $ as $$AdminLayout } from '../../../chunks/AdminLayout_AufrkSKa.mjs';
 import { P as ProductForm } from '../../../chunks/ProductForm_ChPYB-7A.mjs';
 export { renderers } from '../../../renderers.mjs';
 

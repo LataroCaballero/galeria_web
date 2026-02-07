@@ -7,6 +7,7 @@ import {
   Param,
   Body,
   UseGuards,
+  Header,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -19,11 +20,13 @@ export class CategoriesPublicController {
   constructor(private categoriesService: CategoriesService) {}
 
   @Get()
+  @Header('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600')
   findAll() {
     return this.categoriesService.findAll();
   }
 
   @Get(':slug')
+  @Header('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600')
   findBySlug(@Param('slug') slug: string) {
     return this.categoriesService.findBySlug(slug);
   }

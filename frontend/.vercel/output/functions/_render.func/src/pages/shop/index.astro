@@ -8,17 +8,23 @@ import CategoryFilter from '../../components/public/CategoryFilter.astro';
 
 const categorySlug = Astro.url.searchParams.get('categoria') || undefined;
 const search = Astro.url.searchParams.get('q') || undefined;
+const currentPage = Math.max(1, Number(Astro.url.searchParams.get('page')) || 1);
+const ITEMS_PER_PAGE = 12;
 
 const API = import.meta.env.PUBLIC_API_URL;
 
 let products: any[] = [];
 let categories: any[] = [];
+let totalPages = 1;
+
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
 
 try {
   const params = new URLSearchParams();
   if (categorySlug) params.set('category', categorySlug);
   if (search) params.set('search', search);
-  params.set('limit', '50');
+  params.set('limit', String(ITEMS_PER_PAGE));
+  params.set('page', String(currentPage));
 
   const [productsRes, categoriesRes] = await Promise.all([
     fetch(`${API}/products?${params}`),
@@ -28,6 +34,7 @@ try {
   if (productsRes.ok) {
     const data = await productsRes.json();
     products = data.data?.data || data.data || [];
+    totalPages = data.data?.meta?.totalPages || data.meta?.totalPages || 1;
   }
 
   if (categoriesRes.ok) {
@@ -37,26 +44,29 @@ try {
 } catch (e) {
   // API not available
 }
+
+function buildPageUrl(page: number) {
+  const url = new URL(Astro.url);
+  if (page <= 1) {
+    url.searchParams.delete('page');
+  } else {
+    url.searchParams.set('page', String(page));
+  }
+  return url.pathname + url.search;
+}
 ---
 
 <BaseLayout title="Shop · GALERÍA" description="Catalogo de mobiliario, decoracion y arte - Galeria Estudio">
   <Navbar />
 
   <main class="pt-28 pb-24 px-6 md:px-20 bg-[#F5F1E4] min-h-screen">
-    <!-- Page heading -->
-    <div class="max-w-7xl mx-auto mb-12">
-      <h1 class="font-serif text-lg md:text-2xl font-bold uppercase tracking-tightish">
-        SHOP
-      </h1>
-    </div>
-
     <!-- Filters -->
     <div class="max-w-7xl mx-auto">
       <CategoryFilter categories={categories} activeCategory={categorySlug} />
     </div>
 
     <!-- Product Grid -->
-    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-3 gap-1">
       {products.map((product: any) => {
         const primaryImage = product.images?.find((i: any) => i.isPrimary) || product.images?.[0];
         return (
@@ -76,6 +86,41 @@ try {
       <div class="text-center py-20 max-w-7xl mx-auto">
         <p class="font-serif text-tinta/60">No se encontraron productos.</p>
       </div>
+    )}
+
+    <!-- Pagination -->
+    {totalPages > 1 && (
+      <nav class="max-w-7xl mx-auto flex justify-center items-center gap-6 mt-16">
+        {currentPage > 1 ? (
+          <a
+            href={buildPageUrl(currentPage - 1)}
+            class="font-serif text-sm uppercase tracking-tightish text-tinta hover:opacity-70 transition no-underline"
+          >
+            &larr; Anterior
+          </a>
+        ) : (
+          <span class="font-serif text-sm uppercase tracking-tightish text-tinta/30">
+            &larr; Anterior
+          </span>
+        )}
+
+        <span class="font-serif text-sm text-tinta/60">
+          {currentPage} / {totalPages}
+        </span>
+
+        {currentPage < totalPages ? (
+          <a
+            href={buildPageUrl(currentPage + 1)}
+            class="font-serif text-sm uppercase tracking-tightish text-tinta hover:opacity-70 transition no-underline"
+          >
+            Siguiente &rarr;
+          </a>
+        ) : (
+          <span class="font-serif text-sm uppercase tracking-tightish text-tinta/30">
+            Siguiente &rarr;
+          </span>
+        )}
+      </nav>
     )}
   </main>
 </BaseLayout>

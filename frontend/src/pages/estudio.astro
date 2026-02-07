@@ -1,9 +1,11 @@
 ---
 export const prerender = true;
 
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import Section from '../components/Section.astro';
+import estudioImg from '../assets/images/estudio-01.jpg';
 ---
 <BaseLayout title="Estudio · GALERÍA">
   <Navbar />
@@ -24,9 +26,13 @@ import Section from '../components/Section.astro';
       </Fragment>
 
       <!-- 📸 imagen principal -->
-      <img 
-        src="/images/estudio-01.jpg"
+      <Image
+        src={estudioImg}
         alt="Estudio"
+        widths={[640, 960, 1280]}
+        sizes="(max-width: 768px) 100vw, 50vw"
+        format="webp"
+        quality={80}
         class="w-full h-full object-cover mt-8 md:mt-0"
         loading="lazy"
       />

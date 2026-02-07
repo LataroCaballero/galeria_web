@@ -1,44 +1,71 @@
 ---
 export const prerender = true;
 
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
+import proyecto01 from '../assets/images/proyecto-01.jpg';
+import proyecto02 from '../assets/images/proyecto-02.jpg';
 
 const projects = [
   {
-    src: '/images/proyecto-01.jpg',
+    src: proyecto01,
     alt: 'Detalle de mesa y silla en mármol y madera',
   },
   {
-    src: '/images/proyecto-02.jpg',
+    src: proyecto02,
     alt: 'Comedor cálido con lámpara colgante y sillón',
   },
 ];
 ---
 <BaseLayout title="Proyectos · GALERÍA">
   <Navbar />
-  <main class="h-screen bg-[#F5F1E4] flex flex-col justify-center items-center overflow-scroll pt-[500px] md:pt-28">
-    
-    <!-- Título alineado a la izquierda -->
-    <div class="w-full max-w-6xl px-10 md:px-20 mb-8 md:mb-12">
-      <h2 class="font-serif text-lg md:text-2xl tracking-tightish font-bold uppercase text-left">
-        PROYECTOS
-      </h2>
-    </div>
+  <main class="bg-[#F5F1E4] md:h-screen md:overflow-hidden">
+    <div class="flex flex-col h-full pt-20 md:pt-0 md:justify-end px-10 md:px-20 pb-10 md:pb-14 max-w-6xl mx-auto">
 
-    <!-- Imágenes responsivas -->
-    <div class="flex flex-col md:flex-row w-full max-w-6xl justify-center items-center gap-10 px-10 md:px-20 mb-40 flex-1">
-      {projects.map((project) => (
-        <div class="flex-1 flex items-center justify-center w-full h-[40vh] md:h-[70vh]">
-          <img
-            src={project.src}
-            alt={project.alt}
-            class="w-full h-full object-contain"
-            loading="lazy"
-          />
-        </div>
-      ))}
+      <!-- Título -->
+      <div id="proyectos-title" class="mb-6 md:mb-10 transition-transform duration-300">
+        <h2 class="font-serif text-lg md:text-2xl tracking-tightish font-bold uppercase text-left">
+          PROYECTOS
+        </h2>
+      </div>
+
+      <!-- Imágenes -->
+      <div class="flex flex-col md:flex-row gap-4 md:gap-6">
+        {projects.map((project) => (
+          <div class="flex-1 w-full md:h-[65vh]">
+            <Image
+              src={project.src}
+              alt={project.alt}
+              widths={[640, 960, 1280]}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              format="webp"
+              quality={80}
+              class="w-full h-full object-contain"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+
     </div>
-    
   </main>
+
+  <script>
+    const title = document.getElementById('proyectos-title');
+    if (title && window.innerWidth < 768) {
+      let lastY = window.scrollY;
+      window.addEventListener('scroll', () => {
+        const currentY = window.scrollY;
+        if (currentY > lastY && currentY > 40) {
+          title.style.transform = 'translateY(-120%)';
+          title.style.opacity = '0';
+        } else {
+          title.style.transform = 'translateY(0)';
+          title.style.opacity = '1';
+        }
+        lastY = currentY;
+      }, { passive: true });
+    }
+  </script>
 </BaseLayout>

@@ -13,12 +13,13 @@ const navLinks = [
 <section id="top" class="relative h-screen w-full overflow-hidden">
   <!-- VIDEO DE FONDO -->
   <video
+    id="hero-video"
     class="absolute inset-0 w-full h-full object-cover"
     autoplay
     muted
     loop
     playsinline
-    preload="auto"
+    preload="metadata"
     poster="/images/poster.webp"
   >
     <!-- Mobile -->
@@ -34,10 +35,15 @@ const navLinks = [
       media="(min-width: 769px)"
       type="video/webm"
     />
-
-    <!-- Fallback opcional -->
-    <source src="/videos/video_desktop.mp4" type="video/mp4" />
   </video>
+
+  <script>
+    const video = document.getElementById('hero-video') as HTMLVideoElement;
+    if (video && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      video.pause();
+      video.removeAttribute('autoplay');
+    }
+  </script>
 
   <!-- OVERLAY SUAVE (si querés oscurecer un poquito) -->
   <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
