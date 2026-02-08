@@ -132,7 +132,9 @@ const schemaOrg = JSON.stringify({
     <!-- CTA -->
     <div class="text-center">
       <a
-        href="/contacto"
+        href={`https://wa.me/5492644432919?text=${encodeURIComponent(`Hola! quiero consultarles por ${product.name}, muchas gracias!`)}`}
+        target="_blank"
+        rel="noopener noreferrer"
         class="inline-block bg-carbón text-crema px-10 py-3 text-sm uppercase tracking-tightish hover:opacity-90 transition no-underline"
       >
         Consultar
