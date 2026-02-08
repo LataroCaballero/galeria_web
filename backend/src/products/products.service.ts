@@ -74,12 +74,13 @@ export class ProductsService {
   }
 
   async findAllAdmin(query: QueryProductDto) {
-    const { page = 1, limit = 20, category, status, search } = query;
+    const { page = 1, limit = 20, category, categoryId, status, search } = query;
     const skip = (page - 1) * limit;
 
     const where: Prisma.ProductWhereInput = {
       deletedAt: null,
-      ...(category && {
+      ...(categoryId && { categoryId }),
+      ...(!categoryId && category && {
         category: { slug: category },
       }),
       ...(status && { status }),
