@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { QueryProvider } from './QueryProvider';
+import Spinner from './Spinner';
 import api from '../../lib/api';
 import type { Category } from '../../types';
 
@@ -109,9 +110,9 @@ function CategoryManagerInner() {
         <button
           type="submit"
           disabled={createMutation.isPending}
-          className="bg-[#2B2521] text-[#F2EBD8] px-6 py-2 text-sm uppercase tracking-[-0.01em] hover:opacity-90 transition disabled:opacity-50 cursor-pointer whitespace-nowrap"
+          className="bg-[#2B2521] text-[#F2EBD8] px-6 py-2 text-sm uppercase tracking-[-0.01em] hover:opacity-90 transition disabled:opacity-50 cursor-pointer whitespace-nowrap flex items-center gap-1.5"
         >
-          {createMutation.isPending ? '...' : 'Crear'}
+          {createMutation.isPending ? (<><Spinner size="sm" light /> Creando...</>) : 'Crear'}
         </button>
       </form>
 
@@ -119,7 +120,10 @@ function CategoryManagerInner() {
 
       {/* List */}
       {isLoading ? (
-        <p className="text-sm text-[#3C3A37]/50">Cargando...</p>
+        <div className="flex items-center justify-center py-12 gap-3">
+          <Spinner size="lg" />
+          <span className="text-sm text-[#3C3A37]/50">Cargando categorias...</span>
+        </div>
       ) : categories.length === 0 ? (
         <p className="text-sm text-[#3C3A37]/50">No hay categorias.</p>
       ) : (
@@ -141,9 +145,10 @@ function CategoryManagerInner() {
                   />
                   <button
                     onClick={() => handleUpdate(cat.id)}
-                    className="text-[10px] uppercase px-2 py-1 bg-green-100 text-green-800 hover:bg-green-200 cursor-pointer"
+                    disabled={updateMutation.isPending}
+                    className="text-[10px] uppercase px-2 py-1 bg-green-100 text-green-800 hover:bg-green-200 cursor-pointer disabled:opacity-50 flex items-center gap-1"
                   >
-                    Guardar
+                    {updateMutation.isPending ? (<><Spinner size="sm" /> Guardando...</>) : 'Guardar'}
                   </button>
                   <button
                     onClick={() => setEditingId(null)}
@@ -173,9 +178,12 @@ function CategoryManagerInner() {
                     onClick={() => {
                       if (confirm(`Eliminar "${cat.name}"?`)) deleteMutation.mutate(cat.id);
                     }}
-                    className="text-[10px] uppercase px-2 py-1 text-red-600 hover:bg-red-50 cursor-pointer"
+                    disabled={deleteMutation.isPending && deleteMutation.variables === cat.id}
+                    className="text-[10px] uppercase px-2 py-1 text-red-600 hover:bg-red-50 cursor-pointer disabled:opacity-50 flex items-center gap-1"
                   >
-                    Eliminar
+                    {deleteMutation.isPending && deleteMutation.variables === cat.id ? (
+                      <><Spinner size="sm" /> Eliminando...</>
+                    ) : 'Eliminar'}
                   </button>
                 </>
               )}

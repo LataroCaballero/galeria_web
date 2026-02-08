@@ -61,9 +61,14 @@ if (token) {
 
       <button
         type="submit"
-        class="w-full bg-carbón text-crema px-6 py-2.5 text-sm uppercase tracking-tightish hover:opacity-90 transition cursor-pointer"
+        id="submitBtn"
+        class="w-full bg-carbón text-crema px-6 py-2.5 text-sm uppercase tracking-tightish hover:opacity-90 transition cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
       >
-        Ingresar
+        <svg id="loginSpinner" class="animate-spin w-4 h-4 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="#F2EBD8" stroke-width="3" />
+          <path class="opacity-75" fill="#F2EBD8" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+        </svg>
+        <span id="submitText">Ingresar</span>
       </button>
     </form>
 
@@ -76,7 +81,14 @@ if (token) {
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const errorMsg = document.getElementById('errorMsg');
+      const submitBtn = document.getElementById('submitBtn');
+      const spinner = document.getElementById('loginSpinner');
+      const submitText = document.getElementById('submitText');
+
       errorMsg.classList.add('hidden');
+      submitBtn.disabled = true;
+      spinner.classList.remove('hidden');
+      submitText.textContent = 'Ingresando...';
 
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
@@ -103,6 +115,9 @@ if (token) {
       } catch (err) {
         errorMsg.textContent = err.message;
         errorMsg.classList.remove('hidden');
+        submitBtn.disabled = false;
+        spinner.classList.add('hidden');
+        submitText.textContent = 'Ingresar';
       }
     });
   </script>

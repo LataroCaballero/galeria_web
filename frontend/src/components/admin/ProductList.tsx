@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { QueryProvider } from './QueryProvider';
+import Spinner from './Spinner';
 import api from '../../lib/api';
 import type { Product, Category, PaginatedResponse } from '../../types';
 
@@ -102,7 +103,10 @@ function ProductListInner() {
 
       {/* Table */}
       {isLoading ? (
-        <p className="text-sm text-[#3C3A37]/50">Cargando...</p>
+        <div className="flex items-center justify-center py-12 gap-3">
+          <Spinner size="lg" />
+          <span className="text-sm text-[#3C3A37]/50">Cargando productos...</span>
+        </div>
       ) : products.length === 0 ? (
         <div className="text-center py-12 bg-white border border-[#3C3A37]/10">
           <p className="text-sm text-[#3C3A37]/50">No se encontraron productos.</p>
@@ -150,9 +154,12 @@ function ProductListInner() {
                       {product.status === 'DRAFT' && (
                         <button
                           onClick={() => publishMutation.mutate(product.id)}
-                          className="text-[10px] uppercase px-2 py-1 bg-green-100 text-green-800 hover:bg-green-200 transition cursor-pointer"
+                          disabled={publishMutation.isPending}
+                          className="text-[10px] uppercase px-2 py-1 bg-green-100 text-green-800 hover:bg-green-200 transition cursor-pointer disabled:opacity-50 flex items-center gap-1"
                         >
-                          Publicar
+                          {publishMutation.isPending && publishMutation.variables === product.id ? (
+                            <><Spinner size="sm" /> Publicando...</>
+                          ) : 'Publicar'}
                         </button>
                       )}
                       <a
@@ -163,9 +170,12 @@ function ProductListInner() {
                       </a>
                       <button
                         onClick={() => handleDelete(product.id, product.name)}
-                        className="text-[10px] uppercase px-2 py-1 text-red-600 hover:bg-red-50 transition cursor-pointer"
+                        disabled={deleteMutation.isPending && deleteMutation.variables === product.id}
+                        className="text-[10px] uppercase px-2 py-1 text-red-600 hover:bg-red-50 transition cursor-pointer disabled:opacity-50 flex items-center gap-1"
                       >
-                        Eliminar
+                        {deleteMutation.isPending && deleteMutation.variables === product.id ? (
+                          <><Spinner size="sm" /> Eliminando...</>
+                        ) : 'Eliminar'}
                       </button>
                     </div>
                   </td>

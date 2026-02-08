@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { QueryProvider } from './QueryProvider';
+import Spinner from './Spinner';
 import api from '../../lib/api';
 import type { Product, Category } from '../../types';
 import ImageUploader from './ImageUploader';
@@ -252,9 +253,11 @@ function ProductFormInner({ product, apiUrl }: { product?: Product; apiUrl: stri
           <button
             type="submit"
             disabled={mutation.isPending}
-            className="bg-[#2B2521] text-[#F2EBD8] px-8 py-2.5 text-sm uppercase tracking-[-0.01em] hover:opacity-90 transition disabled:opacity-50 cursor-pointer"
+            className="bg-[#2B2521] text-[#F2EBD8] px-8 py-2.5 text-sm uppercase tracking-[-0.01em] hover:opacity-90 transition disabled:opacity-50 cursor-pointer flex items-center gap-2"
           >
-            {mutation.isPending ? 'Guardando...' : isEdit ? 'Actualizar' : 'Crear Producto'}
+            {mutation.isPending ? (
+              <><Spinner size="sm" light /> Guardando...</>
+            ) : isEdit ? 'Actualizar' : 'Crear Producto'}
           </button>
           {saved && <span className="text-green-700 text-sm">Guardado</span>}
           {mutation.isError && (

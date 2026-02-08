@@ -70,6 +70,17 @@ const navItems = [
       </div>
     </div>
 
+    <!-- Page transition overlay -->
+    <div id="pageTransition" class="fixed inset-0 z-[100] bg-[#F5F1E4]/80 flex items-center justify-center hidden">
+      <div class="flex flex-col items-center gap-3">
+        <svg class="animate-spin w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="#3C3A37" stroke-width="3" />
+          <path class="opacity-75" fill="#3C3A37" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+        </svg>
+        <span class="text-xs uppercase tracking-[-0.01em] text-[#3C3A37]/60">Cargando...</span>
+      </div>
+    </div>
+
     <!-- Main content -->
     <main class="flex-1 p-6 md:p-8 overflow-y-auto mt-12 md:mt-0 md:ml-56">
       <slot />
@@ -77,11 +88,30 @@ const navItems = [
   </div>
 
   <script>
+    const transition = document.getElementById('pageTransition');
+
+    // Show spinner on admin navigation links
+    document.querySelectorAll('a[href^="/admin"]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+        // Skip if same page or has target="_blank"
+        if (href === window.location.pathname || (e.currentTarget as HTMLAnchorElement).target === '_blank') return;
+        transition?.classList.remove('hidden');
+      });
+    });
+
+    // Hide on back/forward navigation
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) transition?.classList.add('hidden');
+    });
+
     document.getElementById('logoutBtn')?.addEventListener('click', () => {
+      transition?.classList.remove('hidden');
       document.cookie = 'auth_token=; Max-Age=0; path=/';
       window.location.href = '/admin/login';
     });
     document.getElementById('logoutBtnMobile')?.addEventListener('click', () => {
+      transition?.classList.remove('hidden');
       document.cookie = 'auth_token=; Max-Age=0; path=/';
       window.location.href = '/admin/login';
     });

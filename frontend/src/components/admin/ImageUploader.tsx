@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import Spinner from './Spinner';
 import api from '../../lib/api';
 import { optimizeImage } from '../../lib/optimizeImage';
 import type { ProductImage } from '../../types';
@@ -162,9 +163,15 @@ export default function ImageUploader({ productId, existingImages, apiUrl }: Pro
       >
         <input {...getInputProps()} />
         {optimizing ? (
-          <p className="text-sm text-[#3C3A37]/60">Optimizando imagenes...</p>
+          <div className="flex items-center justify-center gap-2">
+            <Spinner size="md" />
+            <p className="text-sm text-[#3C3A37]/60">Optimizando imagenes...</p>
+          </div>
         ) : uploading ? (
-          <p className="text-sm text-[#3C3A37]/60">Subiendo...</p>
+          <div className="flex items-center justify-center gap-2">
+            <Spinner size="md" />
+            <p className="text-sm text-[#3C3A37]/60">Subiendo...</p>
+          </div>
         ) : isDragActive ? (
           <p className="text-sm">Soltar imagenes aqui</p>
         ) : (
