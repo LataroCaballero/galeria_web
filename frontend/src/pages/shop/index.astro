@@ -6,7 +6,7 @@ import Navbar from '../../components/Navbar.astro';
 import CatalogCard from '../../components/public/CatalogCard.astro';
 import CategoryFilter from '../../components/public/CategoryFilter.astro';
 
-const categorySlug = Astro.url.searchParams.get('categoria') || undefined;
+let categorySlug = Astro.url.searchParams.get('categoria') || undefined;
 const search = Astro.url.searchParams.get('q') || undefined;
 const currentPage = Math.max(1, Number(Astro.url.searchParams.get('page')) || 1);
 const ITEMS_PER_PAGE = 12;
@@ -20,26 +20,29 @@ let totalPages = 1;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
 
 try {
+  // Fetch categories first to determine default
+  const categoriesRes = await fetch(`${API}/categories`);
+  if (categoriesRes.ok) {
+    const data = await categoriesRes.json();
+    categories = data.data || data || [];
+  }
+
+  // If no category selected, use the first one
+  if (!categorySlug && categories.length > 0) {
+    categorySlug = categories[0].slug;
+  }
+
   const params = new URLSearchParams();
   if (categorySlug) params.set('category', categorySlug);
   if (search) params.set('search', search);
   params.set('limit', String(ITEMS_PER_PAGE));
   params.set('page', String(currentPage));
 
-  const [productsRes, categoriesRes] = await Promise.all([
-    fetch(`${API}/products?${params}`),
-    fetch(`${API}/categories`),
-  ]);
-
+  const productsRes = await fetch(`${API}/products?${params}`);
   if (productsRes.ok) {
     const data = await productsRes.json();
     products = data.data?.data || data.data || [];
     totalPages = data.data?.meta?.totalPages || data.meta?.totalPages || 1;
-  }
-
-  if (categoriesRes.ok) {
-    const data = await categoriesRes.json();
-    categories = data.data || data || [];
   }
 } catch (e) {
   // API not available
@@ -47,6 +50,8 @@ try {
 
 function buildPageUrl(page: number) {
   const url = new URL(Astro.url);
+  // Ensure category is always in pagination links
+  if (categorySlug) url.searchParams.set('categoria', categorySlug);
   if (page <= 1) {
     url.searchParams.delete('page');
   } else {
